@@ -261,6 +261,9 @@ let currentRollingIndex = null;
 
 let lastPlaceholderIdx = -1;
 
+let isEnterHolding = false; // 新增标志位
+let enterDown = false; // 新增，防止多次触发
+
 // 全局中英文文案映射
 const LANG = {
     zh: {
@@ -536,17 +539,27 @@ function setupEventListeners() {
     if (questionInput) {
         questionInput.addEventListener('input', updateButtonState);
         questionInput.addEventListener('blur', function() {
-            if (!questionInput.value.trim()) {
+            if (!questionInput.value.trim() && !isHolding) {
                 stopInput();
             }
         });
+        // 修复长按Enter多次触发问题
         questionInput.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
-                if (questionInput.value.trim()) {
+                if (!enterDown && questionInput.value.trim()) {
+                    enterDown = true;
+                    isEnterHolding = true;
                     startHolding();
-                    setTimeout(stopHolding, 100);
                 }
+            }
+        });
+        questionInput.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter' && enterDown) {
+                e.preventDefault();
+                enterDown = false;
+                isEnterHolding = false;
+                stopHolding();
             }
         });
     }
@@ -629,6 +642,8 @@ function startHolding() {
     if (!questionInput.value.trim()) {
         return;
     }
+    // 保证长按期间输入框不会失焦
+    questionInput.focus();
     // 每次开始前重置动画状态
     document.querySelector('.input-container').classList.remove('move-up');
     answerSection.classList.remove('show');
@@ -667,6 +682,8 @@ function stopHolding() {
     seekAnswerBtn.querySelector('.btn-text').style.display = 'inline';
     seekAnswerBtn.querySelector('.btn-loading').style.display = 'none';
     clearInterval(holdInterval);
+    // 保证长按结束后输入框不会失焦
+    questionInput.focus();
     const holdDuration = Date.now() - (holdStartTime || 0);
     holdStartTime = null;
     if (holdDuration >= 1000) {
