@@ -1097,7 +1097,7 @@ html, body {
     justify-content: flex-start;
     background: linear-gradient(180deg,#fff 100%,#fff 100%);
     transition: opacity 0.3s;
-    padding-top: 12vh;
+    padding-top: calc(12vh + 30px);
 }
 
 .loading-tip {
