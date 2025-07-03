@@ -543,10 +543,21 @@ function setupEventListeners() {
                 stopInput();
             }
         });
-        // 修复长按Enter多次触发问题
         questionInput.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
+                if (currentAnswer !== null) {
+                    // 已有答案时，Enter直接进入新问题
+                    if (!enterDown) {
+                        enterDown = true;
+                        isEnterHolding = true;
+                        newQuestion();
+                        // 修复：重置enterDown和isEnterHolding，保证下次Enter可用
+                        enterDown = false;
+                        isEnterHolding = false;
+                    }
+                    return;
+                }
                 if (!enterDown && questionInput.value.trim()) {
                     enterDown = true;
                     isEnterHolding = true;
@@ -559,7 +570,9 @@ function setupEventListeners() {
                 e.preventDefault();
                 enterDown = false;
                 isEnterHolding = false;
-                stopHolding();
+                if (currentAnswer === null) {
+                    stopHolding();
+                }
             }
         });
     }
