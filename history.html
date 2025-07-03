@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="height:100%;overflow:hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史记录 - 解忧之书</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+</head>
+<body style="height:100%;overflow:hidden;">
+    <div class="history-page show" style="display: flex;">
+        <div class="history-blur-bg"></div>
+        <div class="history-header">
+            <h3>历史记录<span id="historyCountDetail" class="history-count"></span></h3>
+            <div class="history-actions-bar">
+                <button class="export-btn" id="exportHistoryBtn">导出数据</button>
+                <button class="import-btn" id="importHistoryBtn">导入数据</button>
+                <input type="file" id="importHistoryFile" accept=".json,.csv,.txt" style="display:none" />
+            </div>
+            <button class="close-btn" id="closeHistory">✕</button>
+        </div>
+        <div class="history-content">
+            <div class="history-list" id="historyList"></div>
+        </div>
+    </div>
+    <script>
+    // 关闭按钮返回首页
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('closeHistory').onclick = function() {
+            window.location.href = 'index.html';
+        };
+        setupVirtualHistory();
+        updateHistoryCountDetail();
+    });
+
+    // 虚拟滚动参数
+    const ITEM_HEIGHT = 88; // 单条历史项高度（px），如需微调可改
+    const VISIBLE_COUNT = 16; // 可视区最多渲染多少条（可根据页面高度微调）
+    let history = [];
+    let historyList, historyContent;
+    let itemNodes = [];
+    let ticking = false;
+
+    function updateHistoryCountDetail() {
+        const countSpan = document.getElementById('historyCountDetail');
+        if (countSpan) {
+            const historyArr = JSON.parse(localStorage.getItem('answerBookHistory') || '[]');
+            countSpan.textContent = historyArr.length > 0 ? `（${historyArr.length}）` : '';
+        }
+    }
+
+    function setupVirtualHistory() {
+        historyList = document.getElementById('historyList');
+        historyContent = document.querySelector('.history-content');
+        history = JSON.parse(localStorage.getItem('answerBookHistory') || '[]');
+        updateHistoryCountDetail();
+        if (history.length === 0) {
+            historyList.innerHTML = `
+                <div class="empty-history">
+                    <img src="images/empty2.png" alt="暂无历史记录" class="empty-svg" />
+                </div>
+            `;
+            return;
+        }
+        // 设置容器高度
+        historyList.innerHTML = '';
+        historyList.style.position = 'relative';
+        historyList.style.height = (history.length * ITEM_HEIGHT) + 'px';
+        // 创建固定数量的item节点
+        itemNodes = [];
+        for (let i = 0; i < Math.min(VISIBLE_COUNT + 4, history.length); i++) {
+            const div = document.createElement('div');
+            div.className = 'history-item';
+            div.style.position = 'absolute';
+            div.style.left = '0';
+            div.style.width = '100%';
+            div.style.height = (ITEM_HEIGHT - 8) + 'px';
+            historyList.appendChild(div);
+            itemNodes.push(div);
+        }
+        renderVirtualList();
+        historyContent.onscroll = onScrollThrottled;
+    }
+
+    function onScrollThrottled() {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                renderVirtualList();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }
+
+    function renderVirtualList() {
+        const scrollTop = historyContent.scrollTop;
+        const total = history.length;
+        const start = Math.max(0, Math.floor(scrollTop / ITEM_HEIGHT) - 2);
+        for (let i = 0; i < itemNodes.length; i++) {
+            const dataIdx = start + i;
+            const node = itemNodes[i];
+            if (dataIdx >= total) {
+                node.style.display = 'none';
+                continue;
+            }
+            const item = history[dataIdx];
+            node.style.display = 'block';
+            node.style.top = (dataIdx * ITEM_HEIGHT) + 'px';
+            node.innerHTML = `
+                <div class="history-question">${item.question}</div>
+                <div class="history-answer">${item.answer}</div>
+                <div class="history-bottom-row">
+                    <div class="history-date">${item.date} - p${item.page}</div>
+                    <button class="history-delete" title="删除" onclick="deleteHistory(${item.id})">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 6V4.8C7 4.35817 7 4.13725 7.0545 3.94702C7.2185 3.37031 7.69031 2.8985 8.26702 2.7345C8.45725 2.68 8.67817 2.68 9.12 2.68H14.88C15.3218 2.68 15.5427 2.68 15.733 2.7345C16.3097 2.8985 16.7815 3.37031 16.9455 3.94702C17 4.13725 17 4.35817 17 4.8V6M4 6H20M19.2 6V18.4C19.2 19.2802 19.2 19.7202 19.0181 20.0541C18.8606 20.3414 18.6014 20.6006 18.3141 20.7581C17.9802 20.94 17.5402 20.94 16.66 20.94H7.34C6.45977 20.94 6.01965 20.94 5.68587 20.7581C5.39863 20.6006 5.13937 20.3414 4.98189 20.0541C4.8 19.7202 4.8 19.2802 4.8 18.4V6M9.6 10.8V16.2M14.4 10.8V16.2" stroke="#D32F2F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <span class="delete-toast">删除</span>
+                    </button>
+                </div>
+            `;
+        }
+    }
+
+    // 删除历史记录
+    function deleteHistory(id) {
+        history = history.filter(item => item.id !== id);
+        localStorage.setItem('answerBookHistory', JSON.stringify(history));
+        setupVirtualHistory();
+        showDeleteToast();
+        updateHistoryCountDetail();
+    }
+
+    // 悬浮toast提示
+    function showDeleteToast() {
+        let toast = document.getElementById('globalToast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'globalToast';
+            toast.className = 'global-toast';
+            document.body.appendChild(toast);
+        }
+        toast.textContent = '删除';
+        toast.classList.add('show');
+        toast.classList.remove('hide');
+        setTimeout(() => {
+            toast.classList.remove('show');
+            toast.classList.add('hide');
+        }, 2000);
+    }
+    </script>
+</body>
+</html> 
