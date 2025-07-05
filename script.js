@@ -696,10 +696,113 @@ document.addEventListener('DOMContentLoaded', function() {
         setLang(isEn);
     });
     
-    // 初始化语言设置
-    if (isEn) {
-        setLang(true);
+    // 自动检测用户语言偏好
+    function detectUserLanguage() {
+        // 1. 优先使用已保存的语言设置
+        const savedLang = localStorage.getItem('answerBookLanguage');
+        if (savedLang) {
+            return savedLang === 'en' ? true : false;
+        }
+        
+        // 2. 检测浏览器语言设置
+        const browserLang = navigator.language || navigator.userLanguage;
+        if (browserLang) {
+            // 检查是否为中文相关语言
+            const chineseLangs = ['zh', 'zh-CN', 'zh-TW', 'zh-HK', 'zh-SG'];
+            const isChinese = chineseLangs.some(lang => 
+                browserLang.toLowerCase().startsWith(lang.toLowerCase())
+            );
+            return !isChinese; // 非中文则使用英文
+        }
+        
+        // 3. 检测系统时区（作为辅助判断）
+        try {
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const chineseTimezones = ['Asia/Shanghai', 'Asia/Hong_Kong', 'Asia/Taipei', 'Asia/Singapore'];
+            const isChineseTimezone = chineseTimezones.includes(timezone);
+            return !isChineseTimezone;
+        } catch (e) {
+            // 时区检测失败，使用默认值
+        }
+        
+        // 4. 可选：IP地理位置检测（需要网络请求）
+        // 注意：这会增加加载时间，建议在需要时再启用
+        // 如果需要启用IP检测，请取消下面的注释
+        /*
+        try {
+            // 使用免费的IP地理位置API
+            const response = await fetch('https://ipapi.co/json/');
+            const data = await response.json();
+            
+            // 中文地区列表
+            const chineseCountries = ['CN', 'TW', 'HK', 'SG'];
+            const chineseRegions = ['China', 'Taiwan', 'Hong Kong', 'Singapore'];
+            
+            // 检查国家代码或地区名称
+            const isChineseCountry = chineseCountries.includes(data.country_code) || 
+                                   chineseRegions.some(region => 
+                                       data.country_name && data.country_name.includes(region)
+                                   );
+            
+            console.log('IP检测结果:', data.country_code, data.country_name, isChineseCountry);
+            return !isChineseCountry;
+        } catch (e) {
+            console.log('IP检测失败:', e.message);
+            // IP检测失败，继续使用其他方法
+        }
+        */
+        
+        // 5. 默认使用中文
+        return false;
     }
+    
+    // 初始化语言设置
+    const detectedLang = detectUserLanguage();
+    if (detectedLang !== isEn) {
+        isEn = detectedLang;
+        setLang(isEn);
+    }
+    
+    // 开发测试功能：在控制台可以手动测试语言检测
+    window.testLanguageDetection = function() {
+        console.log('=== 语言检测测试 ===');
+        console.log('浏览器语言:', navigator.language || navigator.userLanguage);
+        console.log('系统时区:', Intl.DateTimeFormat().resolvedOptions().timeZone);
+        console.log('当前语言:', currentLang);
+        console.log('检测结果:', detectUserLanguage() ? '英文' : '中文');
+        
+        // 模拟不同语言环境
+        console.log('\n=== 模拟测试 ===');
+        
+        // 模拟英文环境
+        const originalLang = navigator.language;
+        Object.defineProperty(navigator, 'language', {
+            value: 'en-US',
+            writable: true
+        });
+        console.log('模拟英文环境:', detectUserLanguage() ? '英文' : '中文');
+        
+        // 恢复原设置
+        Object.defineProperty(navigator, 'language', {
+            value: originalLang,
+            writable: true
+        });
+        
+        // 模拟中文环境
+        Object.defineProperty(navigator, 'language', {
+            value: 'zh-CN',
+            writable: true
+        });
+        console.log('模拟中文环境:', detectUserLanguage() ? '英文' : '中文');
+        
+        // 恢复原设置
+        Object.defineProperty(navigator, 'language', {
+            value: originalLang,
+            writable: true
+        });
+    };
+    
+    // 在控制台输入 testLanguageDetection() 即可测试
     // 导出数据
     if (menuExport) {
         menuExport.onclick = function() {
