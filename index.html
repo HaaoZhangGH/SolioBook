@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32_32.png">
     <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48_48.png">
+    <link rel="manifest" href="manifest.json">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MS3CVH7Q1Z"></script>
     <script>
@@ -103,5 +104,37 @@
     </div>
     <script src="script.js"></script>
     <div id="globalToast" class="global-toast"></div>
+    
+    <!-- PWA Service Worker 注册 -->
+    <script>
+        try {
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('./sw.js')
+                        .then(registration => {
+                            console.log('Service Worker 注册成功:', registration);
+                            
+                            // 检查更新
+                            registration.addEventListener('updatefound', () => {
+                                const newWorker = registration.installing;
+                                newWorker.addEventListener('statechange', () => {
+                                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                        // 有新版本可用
+                                        console.log('有新版本可用');
+                                    }
+                                });
+                            });
+                        })
+                        .catch(registrationError => {
+                            console.log('Service Worker 注册失败:', registrationError);
+                        });
+                });
+            } else {
+                console.log('当前浏览器不支持 Service Worker');
+            }
+        } catch (error) {
+            console.log('PWA 初始化失败:', error);
+        }
+    </script>
 </body>
 </html> 
