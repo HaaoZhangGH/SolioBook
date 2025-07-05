@@ -1,229 +1,456 @@
-// 答案数组
-const answers = [
-    "千万别在这上面压宝",
-    "采取一个大胆的",
-    "听取专家的意见",
-    "你会发现你自己无法妥协",
-    "专注在你的家庭生活上吧",
-    "研究，然后享受它",
-    "当然",
-    "它将无法预测",
-    "绝对不",
-    "带着好玩的好奇心去探索它",
-    "最好等等看",
-    "它好像是确定的",
-    "乘早做",
-    "对别人保密",
-    "可能会发生一些令人吃惊的事作为结局",
-    "答案可能会是以另一种语言形式来到你身边",
-    "你将需要适当调整一下",
-    "怀疑它",
-    "它将带来好运",
-    "你会发现你所需要知道的一切",
-    "你将会很开心你这样做了",
-    "把它写下来",
-    "千万别陷入你的个人感情",
-    "改变你的焦点",
-    "这时候非常不顺利",
-    "用任何你能做到的方式去提升",
-    "如果做的很好那可以，否则就再也不要做了",
-    "这个时候不要要求更多",
-    "避开第一个解决方案",
-    "观察，看看会发生什么事",
-    "它会影响到其他人怎么看你",
-    "你会谈论它",
-    "以一个更加轻松的步伐去做吧",
-    "最好的解决方法可能不是显而易见的那个",
-    "保持灵活性",
-    "这不是你所能控制的",
-    "享受体验",
-    "谨慎的处理",
-    "注意细节",
-    "当你去做的时候，小心行事",
-    "毫无保留的把它说出来",
-    "它有非常重要的意义",
-    "调整一下重要事项的优先顺序",
-    "这是做一个新计划的最好时机",
-    "继续前进",
-    "做一个为什么不这样的清单",
-    "不要等待",
-    "它将是你无法忘怀的事，并且将被解决",
-    "找更多的选择",
-    "履行你自己的义务",
-    "稍后处理它",
-    "跟随其他人的指引",
-    "冒险一次",
-    "接受你习惯的改变",
-    "你需要采取主动",
-    "这可保证不了",
-    "情况将会转变的非常快",
-    "你讲不得不妥协",
-    "你需要更多的信息",
-    "相信你最起初的想法",
-    "它将引起一场轰动",
-    "灾难时极有可能的",
-    "迫切要求终止",
-    "太多的选择就是太少，要意识到这点很难",
-    "是的",
-    "更加仔细的聆听，然后你将会知道",
-    "答案就在你身边",
-    "让它过去吧",
-    "那将会浪费钱",
-    "全力以赴",
-    "你真的不在乎",
-    "你需要考虑考虑其他方式",
-    "今后一年都没什么好说的",
-    "不要浪费你的时间了",
-    "他可能是非凡的",
-    "数到10，再问一次",
-    "这确实已经是事实了",
-    "布置优先次序将会是过程中一个必须的部分",
-    "运用你的想象力",
-    "他一定会很好",
-    "确保最好的决定，镇定下来",
-    "等待",
-    "当你行动的时候，你将需要不断弥补",
-    "一笑置之",
-    "别人也同样取决于你的选择",
-    "你将会后悔的",
-    "你知道现在比以前更好了",
-    "相信你的直觉",
-    "考虑到它的机会",
-    "问问你的母亲",
-    "可能，当你老的时候",
-    "只能做一次",
-    "可能",
-    "不行",
-    "行",
-    "你的行动将会改善一切",
-    "他将无法预测",
-    "一定要确保它",
-    "问问你的父亲",
-    "绝不",
-    "要有耐心点",
-    "放弃老的解决方案",
-    "不，如果你独自一个人的话",
-    "移除你自己的阻碍",
-    "最好把你的注意力放在工作上",
-    "赌一把",
-    "先把其他事完成",
-    "带着好玩的好奇心去探索它",
-    "最好等等看",
-    "你可能有敌对的人",
-    "置身其中看不清楚",
-    "情况还不清楚",
-    "需要一个实质性的努力",
-    "先让你自己休息一下",
-    "这个机会会不会很快再来",
-    "重新考虑你的方法",
-    "它将是不可取的",
-    "等待一个更好的提议",
-    "早点定下来",
-    "是的，但是别勉强它",
-    "去取得一个更加清晰的视野",
-    "实际点",
-    "节省你的能量吧",
-    "现在你可以",
-    "不要做得过火了",
-    "它将会帮助你",
-    "你将为它付出代价",
-    "它肯定会把事情变得有趣",
-    "结果会是积极的",
-    "随便",
-    "他是肯定的",
-    "它将是一种乐趣",
-    "它是不确定的",
-    "更加慷慨点",
-    "你可能必须要丢下其他的东西",
-    "不用担心",
-    "对意外情况要做好准备",
-    "他没有什么意义",
-    "告诉别人它对你意味着什么",
-    "无论你做什么，结果都将会持续下去",
-    "保持开放的心态",
-    "制作计划的好时机",
-    "他可能艰难，但是你会发现它是有价值的",
-    "他是一个非常值得注意的麻烦",
-    "将会有一个阻碍需要去克服",
-    "相关联的问题可能会浮出水面",
-    "你肯定需要支持",
-    "协助将会使你想成功发展",
-    "合作将会是至关重要的",
-    "别傻了，想点有用的",
-    "不能失败",
-    "温和的坚持会有回报的",
-    "你将不会失望",
-    "找出更多的提议",
-    "他可能是一个木已成舟的事",
-    "贯彻你的良好心愿",
-    "花点时间去决定",
-    "不要被迫太快行动",
-    "不要忽略那些显而易见的事",
-    "你必须现在行动",
-    "他不值得努力",
-    "如果你不抵抗",
-    "遵守规则",
-    "别忘记了享受乐趣",
-    "早点行动",
-    "按照专家的意见",
-    "此时你无法掌控",
-    "你自己知道就好",
-    "关注你的日常生活",
-    "看上去是这样子的",
-    "采取冒险的态度",
-    "结果会令人吃惊",
-    "你的行动会促进事情的进展",
-    "你需要慢慢适应",
-    "避免第一种结论",
-    "这件事会影响别人怎么看待你",
-    "此时不宜",
-    "这跟另一种情况有很大的关系",
-    "按照别人告诉你的方式去做",
-    "做得好就去做，做不好玩去别做",
-    "尽你所能做得更好",
-    "你会知道最终结果",
-    "你会为你现在所做的感到高兴",
-    "以书写的形式去表达",
-    "最佳方案不会那么显而易见",
-    "请控制自己的情绪",
-    "继续",
-    "一笑而过",
-    "好好享受这次经历",
-    "情况将会很快改变",
-    "以更加舒缓的节奏进行",
-    "转移你的注意力",
-    "勇敢说出来",
-    "优先做更重要的事",
-    "你需要妥协",
-    "需要更多的努力",
-    "有些事情你无法忘记",
-    "冒一次陷",
-    "做平淡中接受一些改变",
-    "期待事情能够定下来",
-    "这很重要",
-    "当局者迷",
-    "排除杂念",
-    "形式尚不明朗",
-    "大方一点",
-    "那将是一件愉快的事",
-    "放手一博"
-];
+// 答案数组 - 中英文
+const ANSWERS = {
+    zh: [
+        "千万别在这上面压宝",
+        "采取一个大胆的",
+        "听取专家的意见",
+        "你会发现你自己无法妥协",
+        "专注在你的家庭生活上吧",
+        "研究，然后享受它",
+        "当然",
+        "它将无法预测",
+        "绝对不",
+        "带着好玩的好奇心去探索它",
+        "最好等等看",
+        "它好像是确定的",
+        "乘早做",
+        "对别人保密",
+        "可能会发生一些令人吃惊的事作为结局",
+        "答案可能会是以另一种语言形式来到你身边",
+        "你将需要适当调整一下",
+        "怀疑它",
+        "它将带来好运",
+        "你会发现你所需要知道的一切",
+        "你将会很开心你这样做了",
+        "把它写下来",
+        "千万别陷入你的个人感情",
+        "改变你的焦点",
+        "这时候非常不顺利",
+        "用任何你能做到的方式去提升",
+        "如果做的很好那可以，否则就再也不要做了",
+        "这个时候不要要求更多",
+        "避开第一个解决方案",
+        "观察，看看会发生什么事",
+        "它会影响到其他人怎么看你",
+        "你会谈论它",
+        "以一个更加轻松的步伐去做吧",
+        "最好的解决方法可能不是显而易见的那个",
+        "保持灵活性",
+        "这不是你所能控制的",
+        "享受体验",
+        "谨慎的处理",
+        "注意细节",
+        "当你去做的时候，小心行事",
+        "毫无保留的把它说出来",
+        "它有非常重要的意义",
+        "调整一下重要事项的优先顺序",
+        "这是做一个新计划的最好时机",
+        "继续前进",
+        "做一个为什么不这样的清单",
+        "不要等待",
+        "它将是你无法忘怀的事，并且将被解决",
+        "找更多的选择",
+        "履行你自己的义务",
+        "稍后处理它",
+        "跟随其他人的指引",
+        "冒险一次",
+        "接受你习惯的改变",
+        "你需要采取主动",
+        "这可保证不了",
+        "情况将会转变的非常快",
+        "你讲不得不妥协",
+        "你需要更多的信息",
+        "相信你最起初的想法",
+        "它将引起一场轰动",
+        "灾难时极有可能的",
+        "迫切要求终止",
+        "太多的选择就是太少，要意识到这点很难",
+        "是的",
+        "更加仔细的聆听，然后你将会知道",
+        "答案就在你身边",
+        "让它过去吧",
+        "那将会浪费钱",
+        "全力以赴",
+        "你真的不在乎",
+        "你需要考虑考虑其他方式",
+        "今后一年都没什么好说的",
+        "不要浪费你的时间了",
+        "他可能是非凡的",
+        "数到10，再问一次",
+        "这确实已经是事实了",
+        "布置优先次序将会是过程中一个必须的部分",
+        "运用你的想象力",
+        "他一定会很好",
+        "确保最好的决定，镇定下来",
+        "等待",
+        "当你行动的时候，你将需要不断弥补",
+        "一笑置之",
+        "别人也同样取决于你的选择",
+        "你将会后悔的",
+        "你知道现在比以前更好了",
+        "相信你的直觉",
+        "考虑到它的机会",
+        "问问你的母亲",
+        "可能，当你老的时候",
+        "只能做一次",
+        "可能",
+        "不行",
+        "行",
+        "你的行动将会改善一切",
+        "他将无法预测",
+        "一定要确保它",
+        "问问你的父亲",
+        "绝不",
+        "要有耐心点",
+        "放弃老的解决方案",
+        "不，如果你独自一个人的话",
+        "移除你自己的阻碍",
+        "最好把你的注意力放在工作上",
+        "赌一把",
+        "先把其他事完成",
+        "带着好玩的好奇心去探索它",
+        "最好等等看",
+        "你可能有敌对的人",
+        "置身其中看不清楚",
+        "情况还不清楚",
+        "需要一个实质性的努力",
+        "先让你自己休息一下",
+        "这个机会会不会很快再来",
+        "重新考虑你的方法",
+        "它将是不可取的",
+        "等待一个更好的提议",
+        "早点定下来",
+        "是的，但是别勉强它",
+        "去取得一个更加清晰的视野",
+        "实际点",
+        "节省你的能量吧",
+        "现在你可以",
+        "不要做得过火了",
+        "它将会帮助你",
+        "你将为它付出代价",
+        "它肯定会把事情变得有趣",
+        "结果会是积极的",
+        "随便",
+        "他是肯定的",
+        "它将是一种乐趣",
+        "它是不确定的",
+        "更加慷慨点",
+        "你可能必须要丢下其他的东西",
+        "不用担心",
+        "对意外情况要做好准备",
+        "他没有什么意义",
+        "告诉别人它对你意味着什么",
+        "无论你做什么，结果都将会持续下去",
+        "保持开放的心态",
+        "制作计划的好时机",
+        "他可能艰难，但是你会发现它是有价值的",
+        "他是一个非常值得注意的麻烦",
+        "将会有一个阻碍需要去克服",
+        "相关联的问题可能会浮出水面",
+        "你肯定需要支持",
+        "协助将会使你想成功发展",
+        "合作将会是至关重要的",
+        "别傻了，想点有用的",
+        "不能失败",
+        "温和的坚持会有回报的",
+        "你将不会失望",
+        "找出更多的提议",
+        "他可能是一个木已成舟的事",
+        "贯彻你的良好心愿",
+        "花点时间去决定",
+        "不要被迫太快行动",
+        "不要忽略那些显而易见的事",
+        "你必须现在行动",
+        "他不值得努力",
+        "如果你不抵抗",
+        "遵守规则",
+        "别忘记了享受乐趣",
+        "早点行动",
+        "按照专家的意见",
+        "此时你无法掌控",
+        "你自己知道就好",
+        "关注你的日常生活",
+        "看上去是这样子的",
+        "采取冒险的态度",
+        "结果会令人吃惊",
+        "你的行动会促进事情的进展",
+        "你需要慢慢适应",
+        "避免第一种结论",
+        "这件事会影响别人怎么看待你",
+        "此时不宜",
+        "这跟另一种情况有很大的关系",
+        "按照别人告诉你的方式去做",
+        "做得好就去做，做不好玩去别做",
+        "尽你所能做得更好",
+        "你会知道最终结果",
+        "你会为你现在所做的感到高兴",
+        "以书写的形式去表达",
+        "最佳方案不会那么显而易见",
+        "请控制自己的情绪",
+        "继续",
+        "一笑而过",
+        "好好享受这次经历",
+        "情况将会很快改变",
+        "以更加舒缓的节奏进行",
+        "转移你的注意力",
+        "勇敢说出来",
+        "优先做更重要的事",
+        "你需要妥协",
+        "需要更多的努力",
+        "有些事情你无法忘记",
+        "冒一次陷",
+        "做平淡中接受一些改变",
+        "期待事情能够定下来",
+        "这很重要",
+        "当局者迷",
+        "排除杂念",
+        "形式尚不明朗",
+        "大方一点",
+        "那将是一件愉快的事",
+        "放手一博"
+    ],
+    en: [
+        "Don't be on it",
+        "Talk a bold attitude",
+        "Listen to the opinions of the experts",
+        "You'll find yourself unable to compromise",
+        "Focus on your family life",
+        "Study, and enjoy it",
+        "Of course",
+        "It will not be predictable",
+        "Absolutely not",
+        "Explore it with fun curiosity",
+        "It's better to wait and see",
+        "It seems to be certain",
+        "Do as early as possible",
+        "Confidentiality to others",
+        "Some surprising things may happen as a result",
+        "The answer may come to you in another language",
+        "You will need to adjust it properly",
+        "Doubt it",
+        "It will bring good luck",
+        "You will find everything you need to know",
+        "You're going to be happy that you did it",
+        "Write it down",
+        "Never fall into your personal feelings",
+        "Change your focus",
+        "It was a very bad time",
+        "Go up with any way you can do it",
+        "If it's done very well, if not, don't do it again",
+        "Don't ask for more at this time",
+        "Avoid the first solution",
+        "Look, see what's going to happen",
+        "It will affect how other people look at you",
+        "You'll talk about it",
+        "Do it at a more relaxed pace",
+        "The best solution may not be the obvious one",
+        "Maintain flexibility",
+        "This is not what you can control",
+        "Enjoy the experience",
+        "Handle with caution",
+        "Pay attention to the details",
+        "Be careful when you are going to do it",
+        "Say it without reservations",
+        "It has a very important meaning",
+        "Replace the priorities of important matters",
+        "This is the best time to make a new plan",
+        "Move on",
+        "Make a list of why not",
+        "Do not wait",
+        "It will be something you can't forget, and it will be solved",
+        "Find more options",
+        "Fulfill your own obligations",
+        "Deal with it later",
+        "Follow the guidance of others",
+        "Take a chance",
+        "Accept the change you are used to",
+        "You need to take the initiative",
+        "This can't be guaranteed",
+        "The situation is going to change very quickly",
+        "You will have to compromise",
+        "You need more information",
+        "Believe in your first thoughts",
+        "It will cause a sensation",
+        "Disaster is extremely possible",
+        "Urgent demand for termination",
+        "It's hard to realize that too many choices are too little",
+        "Yes",
+        "Listen more carefully, and then you'll know",
+        "The answer is around you",
+        "Let it pass",
+        "That would be a waste of money",
+        "Go to all lengths",
+        "You don't really care",
+        "You need to think about other ways",
+        "There's nothing to say about the year from now on",
+        "Don't waste your time",
+        "He may be extraordinary",
+        "Count to 10, ask again",
+        "It's true that it's already true",
+        "Prioritization will be a necessary part of the process",
+        "Use your imagination",
+        "He must be good",
+        "Make sure the best decision, calm down",
+        "Wait for",
+        "When you act, you will need to make up for it",
+        "Laugh out of court",
+        "Other people also depend on your choice",
+        "You'll regret it",
+        "You know it's better now than before",
+        "Believe in your intuition",
+        "Consider its opportunity",
+        "Ask your mother",
+        "Maybe, when you're old",
+        "Can only do it once",
+        "Probably",
+        "No way",
+        "That's ok",
+        "Your action will improve everything",
+        "He will still be unpredictable",
+        "Be sure to make sure of it",
+        "Ask your father",
+        "Never",
+        "Be patient",
+        "Give up the old solution",
+        "No, if you're alone",
+        "Remove your own obstacles",
+        "It's better to focus on your work",
+        "Make a bet",
+        "Do something else first",
+        "Explore it with fun curiosity",
+        "It's better to wait and see",
+        "You may have a hostile person",
+        "You're too close to see",
+        "The situation is not clear",
+        "A substantial effort is needed",
+        "Let yourself take a rest first",
+        "This opportunity won't come back soon",
+        "Reconsider your method",
+        "It will be undesirable",
+        "Wait for a better proposal",
+        "Set it early",
+        "Yes, but don't force it",
+        "To get a clearer view",
+        "Actual point",
+        "Save your energy",
+        "Now you can",
+        "Don't overdo it",
+        "It will help you",
+        "You will pay for it",
+        "It's sure to make things interesting",
+        "The result will be positive",
+        "Whatever",
+        "He is sure",
+        "It will be a pleasure",
+        "It's not sure",
+        "More generous",
+        "You may have to drop something else",
+        "Never mind",
+        "Prepare for the accident",
+        "He has nothing to do with it",
+        "Tell others what it means to you",
+        "No matter what you do, the result will last",
+        "Keep an open mind",
+        "A good time to make plans",
+        "He may be hard, but you'll find it worthwhile",
+        "He is a very noteworthy problem",
+        "There will be a hindrance to be overcome",
+        "The associated problems may emerge",
+        "You must need support",
+        "Help will make you want to develop successfully",
+        "Cooperation will be crucial",
+        "Do not be silly, think useful",
+        "Cannot fail",
+        "A gentle insistence will be rewarded",
+        "You will not be disappointed",
+        "Find out more proposals",
+        "He may be a what is done cannot be undone",
+        "Carry out your good wishes",
+        "Spend more time to decide",
+        "Don't be forced to act too fast",
+        "Don't ignore the obvious things",
+        "You have to act now",
+        "He is not worth the effort",
+        "If you do not resist",
+        "Toe the mark",
+        "Don't forget to enjoy the fun",
+        "Early action",
+        "Follow the advice of experts",
+        "That's out of your control",
+        "Keep it to yourself",
+        "Pay attention to your daily life",
+        "It looks like this",
+        "Take an adventurous attitude",
+        "The result would be surprising",
+        "Your action will promote the progress of things",
+        "You will need to accommodate",
+        "Avoid the first conclusion",
+        "This will affect what others think of you",
+        "It is not suitable at this time",
+        "This has a lot to do with the other case",
+        "Do it according to what others tell you",
+        "If it's done well; if not, don't do it at all",
+        "Do as much as you can",
+        "You will know the end result",
+        "You'll be happy for what you're doing",
+        "Express in the form of writing",
+        "The best plan won't be so obvious",
+        "Please control your emotions",
+        "Go on",
+        "Laugh it off",
+        "Enjoy the experience",
+        "Things will change soon",
+        "In a more soothing rhythm",
+        "Shift your focus",
+        "Speak up bravely",
+        "Give priority to more important things",
+        "You need to compromise",
+        "More effort is needed",
+        "There are some things you can't forget",
+        "Take a chance",
+        "Accept some change in the mundane",
+        "Expect things to be settled",
+        "It's important",
+        "Those closely involved cannot see clearly",
+        "Eliminate distractions",
+        "The situation is unclear",
+        "Be more generous",
+        "It will be a pleasure",
+        "Bet on it"
+    ]
+};
 
-// 随机占位符文案
-const placeholderTexts = [
-    '写下你的困惑',
-    '写下疑惑，看看宇宙的暗示',
-    '有困惑交给解忧之书',
-    '让书页为你指引方向',
-    '写下心事，答案自会浮现',
-    '大胆提问，解忧之书会回应你',
-    '犹豫不决，抽一签吧',
-    '有些决定，不妨交给命运',
-    '犹豫不决时，你需要一个暗示',
-    '让解忧之书为你的犹豫点一盏灯',
-    '看看命运想对你说什么',
-    '你需要一些勇气'
-];
+// 随机占位符文案 - 中英文
+const PLACEHOLDER_TEXTS = {
+    zh: [
+        '写下你的困惑',
+        '写下疑惑，看看宇宙的暗示',
+        '有困惑交给解忧之书',
+        '让书页为你指引方向',
+        '写下心事，答案自会浮现',
+        '大胆提问，解忧之书会回应你',
+        '犹豫不决，抽一签吧',
+        '有些决定，不妨交给命运',
+        '犹豫不决时，你需要一个暗示',
+        '让解忧之书为你的犹豫点一盏灯',
+        '看看命运想对你说什么',
+        '你需要一些勇气'
+    ],
+    en: [
+        'Write down your confusion',
+        'Write your doubts, see the universe\'s hints',
+        'Leave your confusion to the Book of Solace',
+        'Let the pages guide your way',
+        'Write your thoughts, answers will emerge',
+        'Ask boldly, the Book of Solace will respond',
+        'When in doubt, draw a sign',
+        'Some decisions, leave to fate',
+        'When uncertain, you need a hint',
+        'Let the Book of Solace light your way',
+        'See what destiny wants to tell you',
+        'You need some courage'
+    ]
+};
 
 // DOM 元素
 const questionInput = document.getElementById('questionInput');
@@ -270,8 +497,8 @@ const LANG = {
         history: '我的收藏',
         export: '导出收藏',
         import: '导入数据',
-        switchLang: '切换英文',
-        switchLangEn: '切换中文',
+        switchLang: '切换语言',
+        switchLangEn: '切换语言',
         save: '保存',
         newQ: '新的问题',
         empty: '暂无收藏',
@@ -288,18 +515,25 @@ const LANG = {
         delete: '删除',
         page: '页码',
         loading: '正在翻阅...',
-        seek: '翻阅答案',
+        seek: '按住翻阅答案',
         placeholder: '写下你的困扰',
+        loadingTip: '犹豫不决时，你需要一个指引和暗示',
+        noHistoryExport: '暂无历史可导出',
+        saveSuccess: '保存成功',
+        deleteSuccess: '删除成功',
+        undo: '撤销',
+        collection: 'Collection',
+        seeking: '正在翻阅...',
     },
     en: {
-        history: 'Favorites',
-        export: 'Export Favorites',
-        import: 'Import Data',
-        switchLang: 'Switch to English',
-        switchLangEn: 'Switch to Chinese',
+        history: 'Collection',
+        export: 'Export',
+        import: 'Import',
+        switchLang: 'Switch Language',
+        switchLangEn: 'Switch Language',
         save: 'Save',
         newQ: 'New Question',
-        empty: 'No Favorites',
+        empty: 'No Collection',
         close: '✕',
         preview: 'Preview',
         merge: 'Merge',
@@ -313,8 +547,15 @@ const LANG = {
         delete: 'Delete',
         page: 'Page',
         loading: 'Loading...',
-        seek: 'Seek Answer',
+        seek: 'Hold to seek answer',
         placeholder: 'Type your question',
+        loadingTip: 'When in doubt, you need guidance and hints',
+        noHistoryExport: 'No history to export',
+        saveSuccess: 'Saved successfully',
+        deleteSuccess: 'Deleted successfully',
+        undo: 'Undo',
+        collection: 'Collection',
+        seeking: 'Seeking...',
     }
 };
 let currentLang = 'zh';
@@ -323,12 +564,29 @@ let currentLang = 'zh';
 function setLang(isEn) {
     currentLang = isEn ? 'en' : 'zh';
     const L = LANG[currentLang];
-    document.getElementById('historyBtn').textContent = L.history;
-    document.getElementById('menuExport').childNodes[3].textContent = L.export;
-    document.getElementById('menuImport').childNodes[3].textContent = L.import;
+    
+    // 保存语言偏好到localStorage
+    localStorage.setItem('answerBookLanguage', currentLang);
+    
+    // 顶部按钮
+    if(document.getElementById('historyBtn')) document.getElementById('historyBtn').textContent = L.history;
+    if(document.getElementById('historyTitle')) document.getElementById('historyTitle').textContent = L.history;
+    // 下拉菜单
+    if(document.getElementById('menuExportText')) document.getElementById('menuExportText').textContent = L.export;
+    if(document.getElementById('menuImportText')) document.getElementById('menuImportText').textContent = L.import;
+    if(document.getElementById('menuLangText')) document.getElementById('menuLangText').textContent = L.switchLang;
+    // 加载页
+    if(document.getElementById('loadingTip')) document.getElementById('loadingTip').textContent = L.loadingTip;
+    // 输入区
+    if(document.getElementById('placeholderText')) {
+        // 语言切换时重新设置随机占位符
+        setRandomPlaceholder();
+    }
+    // 底部按钮
+    if(document.getElementById('seekBtnText')) document.getElementById('seekBtnText').textContent = L.seek;
+    if(document.getElementById('seekBtnLoading')) document.getElementById('seekBtnLoading').textContent = L.loading;
     if(document.getElementById('saveBtn')) document.getElementById('saveBtn').textContent = L.save;
     if(document.getElementById('newQuestionBtn')) document.getElementById('newQuestionBtn').textContent = L.newQ;
-    if(document.getElementById('placeholderText')) document.getElementById('placeholderText').textContent = L.placeholder;
     // 弹窗、空状态、关闭按钮、预览等
     document.querySelectorAll('.import-modal-title').forEach(e=>e.textContent=L.importTitle);
     document.querySelectorAll('.import-mode-merge').forEach(e=>e.textContent=L.merge);
@@ -339,12 +597,20 @@ function setLang(isEn) {
     document.querySelectorAll('.close-btn').forEach(e=>e.textContent=L.close);
     document.querySelectorAll('.empty-text').forEach(e=>e.textContent=L.empty);
     document.querySelectorAll('.import-mode-preview>div:first-child').forEach(e=>e.textContent=L.preview);
-    // 历史详情页
-    if(document.getElementById('historyCountDetail')){
-      let h3 = document.querySelector('.history-header h3');
-      if(h3) h3.childNodes[0].textContent = L.history;
+    
+    // 如果当前有答案，更新为对应语言的答案
+    if (currentAnswer !== null && currentAnswerIndex !== null) {
+        const currentAnswers = ANSWERS[currentLang];
+        if (currentAnswers && currentAnswers[currentAnswerIndex]) {
+            currentAnswer = currentAnswers[currentAnswerIndex];
+            if (answerText) {
+                answerText.textContent = currentAnswer;
+            }
+        }
     }
-    // 其他可扩展
+    
+    // 更新日期显示
+    showCurrentDate();
 }
 
 // 工具函数：将日期字符串转为时间戳，支持"YYYY/MM/DD"或"YYYY-MM-DD"或"YYYY.MM.DD"格式
@@ -358,11 +624,12 @@ function parseDateToTimestamp(dateStr) {
 
 function setRandomPlaceholder() {
     if (!placeholderText) return;
+    const texts = PLACEHOLDER_TEXTS[currentLang] || PLACEHOLDER_TEXTS.zh;
     let idx;
     do {
-        idx = Math.floor(Math.random() * placeholderTexts.length);
-    } while (placeholderTexts.length > 1 && idx === lastPlaceholderIdx);
-    placeholderText.textContent = placeholderTexts[idx];
+        idx = Math.floor(Math.random() * texts.length);
+    } while (texts.length > 1 && idx === lastPlaceholderIdx);
+    placeholderText.textContent = texts[idx];
     lastPlaceholderIdx = idx;
 }
 
@@ -422,19 +689,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     // 语言切换
-    let isEn = false;
+    let isEn = localStorage.getItem('answerBookLanguage') === 'en';
     const menuLang = document.getElementById('menuLang');
     menuLang && menuLang.addEventListener('click', function() {
         isEn = !isEn;
         setLang(isEn);
     });
+    
+    // 初始化语言设置
+    if (isEn) {
+        setLang(true);
+    }
     // 导出数据
     if (menuExport) {
         menuExport.onclick = function() {
             menuDropdown.style.display = 'none';
             const history = JSON.parse(localStorage.getItem('answerBookHistory') || '[]');
             if (!history.length) {
-                showGlobalToast('暂无历史可导出');
+                showGlobalToast(LANG[currentLang].noHistoryExport);
                 return;
             }
             let csv = '问题,答案,日期,页码\n';
@@ -506,28 +778,55 @@ document.addEventListener('DOMContentLoaded', function() {
 function showCurrentDate() {
     const now = new Date();
     
-    // 中文月份映射
-    const chineseMonths = [
-        '一月', '二月', '三月', '四月', '五月', '六月',
-        '七月', '八月', '九月', '十月', '十一月', '十二月'
-    ];
-    
-    // 中文数字映射 - 更简洁的表达
-    const chineseNumbers = [
-        '', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十',
-        '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十',
-        '廿一', '廿二', '廿三', '廿四', '廿五', '廿六', '廿七', '廿八', '廿九', '三十', '三十一'
-    ];
-    
-    // 中文星期映射
-    const chineseWeekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-    
-    const month = chineseMonths[now.getMonth()];
-    const day = chineseNumbers[now.getDate()];
-    const weekday = chineseWeekdays[now.getDay()];
-    
-    const dateString = `${month}${day}日 ${weekday}`;
-    document.getElementById('dateDisplay').textContent = dateString;
+    if (currentLang === 'en') {
+        // 英文日期格式
+        const englishMonths = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        
+        const englishWeekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        
+        // 获取日期后缀
+        function getDaySuffix(day) {
+            if (day >= 11 && day <= 13) return 'th';
+            switch (day % 10) {
+                case 1: return 'st';
+                case 2: return 'nd';
+                case 3: return 'rd';
+                default: return 'th';
+            }
+        }
+        
+        const month = englishMonths[now.getMonth()];
+        const day = now.getDate();
+        const daySuffix = getDaySuffix(day);
+        const weekday = englishWeekdays[now.getDay()];
+        
+        const dateString = `${month} ${day}${daySuffix}, ${weekday}`;
+        document.getElementById('dateDisplay').textContent = dateString;
+    } else {
+        // 中文日期格式
+        const chineseMonths = [
+            '一月', '二月', '三月', '四月', '五月', '六月',
+            '七月', '八月', '九月', '十月', '十一月', '十二月'
+        ];
+        
+        const chineseNumbers = [
+            '', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十',
+            '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十',
+            '廿一', '廿二', '廿三', '廿四', '廿五', '廿六', '廿七', '廿八', '廿九', '三十', '三十一'
+        ];
+        
+        const chineseWeekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+        
+        const month = chineseMonths[now.getMonth()];
+        const day = chineseNumbers[now.getDate()];
+        const weekday = chineseWeekdays[now.getDay()];
+        
+        const dateString = `${month}${day}日 ${weekday}`;
+        document.getElementById('dateDisplay').textContent = dateString;
+    }
 }
 
 // 设置事件监听器
@@ -581,7 +880,7 @@ function setupEventListeners() {
     if (seekAnswerBtn) {
         seekAnswerBtn.addEventListener('mousedown', function(e) {
             if (seekAnswerBtn.disabled) {
-                showGlobalToast('未输入内容');
+                showGlobalToast(currentLang === 'en' ? 'Please enter content' : '未输入内容');
                 e.preventDefault();
                 return;
             }
@@ -603,7 +902,7 @@ function setupEventListeners() {
         });
         seekAnswerBtn.addEventListener('touchstart', function(e) {
             if (seekAnswerBtn.disabled) {
-                showGlobalToast('未输入内容');
+                showGlobalToast(currentLang === 'en' ? 'Please enter content' : '未输入内容');
                 e.preventDefault();
                 return;
             }
@@ -675,13 +974,14 @@ function startHolding() {
 
     // 顺序翻页
     let rollingIndex = 0;
-    const total = answers.length;
+    const currentAnswers = ANSWERS[currentLang];
+    const total = currentAnswers.length;
     const interval = 600 / total; // 动态计算每一页的间隔，1秒一轮
 
     holdInterval = setInterval(() => {
-        currentRollingAnswer = answers[rollingIndex];
+        currentRollingAnswer = currentAnswers[rollingIndex];
         currentRollingIndex = rollingIndex;
-        answerText.textContent = '正真翻阅...'; // 只显示提示，不显示答案
+        answerText.textContent = LANG[currentLang].seeking; // 只显示提示，不显示答案
         answerPage.textContent = `p${rollingIndex + 1}`;
         rollingIndex = (rollingIndex + 1) % total;
     }, interval);
@@ -702,8 +1002,8 @@ function stopHolding() {
     if (holdDuration >= 1000) {
         generateAnswerFromRolling();
     } else {
-        showGlobalToast('需长按大于1秒');
-        // 只移除动画类，不直接隐藏display，保证下次动画生效
+        showGlobalToast(currentLang === 'en' ? 'Need to hold for more than 1 second' : '需长按大于1秒');
+        // 只移除动画类，不直接隐藏display，保证下次动画重置
         document.querySelector('.input-container').classList.remove('move-up');
         answerSection.classList.remove('show');
         // 用requestAnimationFrame保证动画重置
@@ -715,8 +1015,9 @@ function stopHolding() {
 
 // 生成答案
 function generateAnswer() {
-    const randomIndex = Math.floor(Math.random() * answers.length);
-    currentAnswer = answers[randomIndex];
+    const currentAnswers = ANSWERS[currentLang];
+    const randomIndex = Math.floor(Math.random() * currentAnswers.length);
+    currentAnswer = currentAnswers[randomIndex];
     currentAnswerIndex = randomIndex;
     
     answerText.textContent = currentAnswer;
@@ -737,10 +1038,11 @@ function generateAnswer() {
 
 // 生成答案
 function generateAnswerFromRolling() {
+    const currentAnswers = ANSWERS[currentLang];
     if (currentRollingAnswer == null) {
         // 兜底：如果没滚动过，随机一个
-        const randomIndex = Math.floor(Math.random() * answers.length);
-        currentRollingAnswer = answers[randomIndex];
+        const randomIndex = Math.floor(Math.random() * currentAnswers.length);
+        currentRollingAnswer = currentAnswers[randomIndex];
         currentRollingIndex = randomIndex;
     }
     currentAnswer = currentRollingAnswer;
@@ -787,13 +1089,13 @@ function showGlobalToast(message, options = {}) {
     if (options.undo) {
         const undoBtn = document.createElement('button');
         undoBtn.className = 'toast-undo';
-        undoBtn.textContent = '撤销';
+        undoBtn.textContent = LANG[currentLang].undo;
         undoBtn.onclick = options.onUndo || function() {
             if (lastDeletedHistory) {
                 history.unshift(lastDeletedHistory);
                 localStorage.setItem('answerBookHistory', JSON.stringify(history));
                 loadHistory();
-                showGlobalToast('已撤销删除');
+                showGlobalToast(currentLang === 'en' ? 'Delete undone' : '已撤销删除');
                 lastDeletedHistory = null;
             }
         };
@@ -859,7 +1161,7 @@ function saveAnswer() {
     
     localStorage.setItem('answerBookHistory', JSON.stringify(history));
     loadHistory();
-    showGlobalToast('保存成功');
+    showGlobalToast(LANG[currentLang].saveSuccess);
     
     // 保存后进入新的输入状态
     newQuestion();
@@ -921,7 +1223,7 @@ function deleteHistory(id) {
         history.splice(idx, 1);
         localStorage.setItem('answerBookHistory', JSON.stringify(history));
         loadHistory();
-        showGlobalToast('删除成功', {undo: true});
+        showGlobalToast(LANG[currentLang].deleteSuccess, {undo: true});
         updateHistoryCount();
     }
 }
@@ -988,7 +1290,7 @@ function showImportConfirm(file) {
         if (file.name.endsWith('.csv')) {
             const lines = text.split(/\r?\n/).filter(Boolean);
             if (!lines[0].includes('问题') || !lines[0].includes('答案')) {
-                showGlobalToast('不支持的CSV格式');
+                showGlobalToast(currentLang === 'en' ? 'Unsupported CSV format' : '不支持的CSV格式');
                 return;
             }
             for (let i = 1; i < lines.length; i++) {
@@ -1010,15 +1312,15 @@ function showImportConfirm(file) {
                     importData = arr;
                     importType = 'json';
                 } else {
-                    showGlobalToast('不支持的JSON格式');
+                    showGlobalToast(currentLang === 'en' ? 'Unsupported JSON format' : '不支持的JSON格式');
                     return;
                 }
             } catch {
-                showGlobalToast('JSON文件损坏');
+                showGlobalToast(currentLang === 'en' ? 'JSON file corrupted' : 'JSON文件损坏');
                 return;
             }
         } else {
-            showGlobalToast('仅支持CSV或JSON格式');
+            showGlobalToast(currentLang === 'en' ? 'Only CSV or JSON format supported' : '仅支持CSV或JSON格式');
             return;
         }
         const localData = JSON.parse(localStorage.getItem('answerBookHistory') || '[]');
@@ -1139,7 +1441,9 @@ function doImportHistory(file, mode, importData) {
     // 覆盖直接用importData
     localStorage.setItem('answerBookHistory', JSON.stringify(data));
     loadHistory();
-    showGlobalToast(mode === 'merge' ? '历史合并导入成功' : '历史覆盖导入成功');
+    showGlobalToast(mode === 'merge' ? 
+        (currentLang === 'en' ? 'History merged successfully' : '历史合并导入成功') : 
+        (currentLang === 'en' ? 'History overwritten successfully' : '历史覆盖导入成功'));
     updateHistoryCount();
 }
 

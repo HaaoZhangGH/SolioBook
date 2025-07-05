@@ -23,7 +23,7 @@
     <!-- 加载页 -->
     <div id="loadingPage">
         <img src="images/flipbook.gif" alt="翻书动图" class="loading-flipbook" />
-        <div class="loading-tip">
+        <div class="loading-tip" id="loadingTip">
             犹豫不决时，你需要一个指引和暗示
         </div>
         <div id="loadingCountdown">3</div>
@@ -43,13 +43,24 @@
                     <span class="menu-icon">
                         <svg width="18" height="18" viewBox="0 0 22 22" fill="none"><path d="M11 3v10m0 0l-4-4m4 4l4-4M4 19h14" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </span>
-                    导出收藏
+                    <span id="menuExportText">导出收藏</span>
                 </div>
                 <div class="history-menu-item" id="menuImport">
                     <span class="menu-icon">
                         <svg width="18" height="18" viewBox="0 0 22 22" fill="none"><path d="M11 19V9m0 0l-4 4m4-4l4 4M4 3h14" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </span>
-                    导入数据
+                    <span id="menuImportText">导入数据</span>
+                </div>
+                <div class="history-menu-divider"></div>
+                <div class="history-menu-item" id="menuLang">
+                    <span class="menu-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12h20" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <span id="menuLangText">切换语言</span>
                 </div>
             </div>
         </div>
@@ -70,8 +81,8 @@
     </div>
     <div class="bottom-bar">
         <button class="seek-answer-btn" id="seekAnswerBtn" disabled>
-            <span class="btn-text">按住翻阅答案</span>
-            <span class="btn-loading" style="display: none;">正在翻阅...</span>
+            <span class="btn-text" id="seekBtnText">按住翻阅答案</span>
+            <span class="btn-loading" id="seekBtnLoading" style="display: none;">正在翻阅...</span>
         </button>
         <div class="action-buttons" id="actionButtons" style="display: none;">
             <button class="save-btn" id="saveBtn">保存</button>
@@ -82,7 +93,7 @@
         <div class="history-blur-bg"></div>
         <div class="history-gradient-top"></div>
         <div class="history-header">
-            <h3>我的收藏</h3>
+            <h3 id="historyTitle">我的收藏</h3>
             <button class="close-btn" id="closeHistory">✕</button>
         </div>
         <div class="history-content">
