@@ -672,32 +672,108 @@ document.addEventListener('DOMContentLoaded', function() {
     const menuExport = document.getElementById('menuExport');
     const menuImport = document.getElementById('menuImport');
     let menuTimer = null;
+    let isDropdownOpen = false; // 跟踪下拉菜单状态
+    
     if (menuBtn && menuDropdown) {
+        // 桌面端鼠标事件
         menuBtn.addEventListener('mouseenter', () => {
             clearTimeout(menuTimer);
             menuDropdown.style.display = 'flex';
+            isDropdownOpen = true;
         });
         menuBtn.addEventListener('mouseleave', () => {
-            menuTimer = setTimeout(() => menuDropdown.style.display = 'none', 180);
+            menuTimer = setTimeout(() => {
+                menuDropdown.style.display = 'none';
+                isDropdownOpen = false;
+            }, 180);
         });
         menuDropdown.addEventListener('mouseenter', () => {
             clearTimeout(menuTimer);
             menuDropdown.style.display = 'flex';
+            isDropdownOpen = true;
         });
         menuDropdown.addEventListener('mouseleave', () => {
-            menuTimer = setTimeout(() => menuDropdown.style.display = 'none', 180);
+            menuTimer = setTimeout(() => {
+                menuDropdown.style.display = 'none';
+                isDropdownOpen = false;
+            }, 180);
+        });
+        
+        // 移动端触摸事件
+        menuBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // 添加短暂延迟，避免双击问题
+            setTimeout(() => {
+                if (isDropdownOpen) {
+                    // 如果已经打开，则关闭
+                    menuDropdown.style.display = 'none';
+                    isDropdownOpen = false;
+                } else {
+                    // 如果关闭，则打开
+                    menuDropdown.style.display = 'flex';
+                    isDropdownOpen = true;
+                }
+            }, 50);
+        });
+        
+        // 点击其他地方关闭下拉菜单
+        document.addEventListener('click', (e) => {
+            if (isDropdownOpen && !menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
+                menuDropdown.style.display = 'none';
+                isDropdownOpen = false;
+            }
+        });
+        
+        // 触摸其他地方关闭下拉菜单（移动端）
+        document.addEventListener('touchstart', (e) => {
+            // 延迟处理，避免与按钮点击冲突
+            setTimeout(() => {
+                if (isDropdownOpen && !menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
+                    menuDropdown.style.display = 'none';
+                    isDropdownOpen = false;
+                }
+            }, 100);
         });
     }
     // 语言切换
     let isEn = localStorage.getItem('answerBookLanguage') === 'en';
     const menuLang = document.getElementById('menuLang');
-    menuLang && menuLang.addEventListener('click', function() {
-        isEn = !isEn;
-        setLang(isEn);
-        // 标记用户手动切换过语言
-        userManuallySwitched = true;
-        console.log('用户手动切换语言:', isEn ? '英文' : '中文');
-    });
+    if (menuLang) {
+        // 桌面端点击事件
+        menuLang.addEventListener('click', function() {
+            isEn = !isEn;
+            setLang(isEn);
+            // 标记用户手动切换过语言
+            userManuallySwitched = true;
+            console.log('用户手动切换语言:', isEn ? '英文' : '中文');
+            // 移动端：点击菜单项后关闭下拉菜单
+            if (menuDropdown) {
+                menuDropdown.style.display = 'none';
+                isDropdownOpen = false;
+            }
+        });
+        
+        // 移动端触摸事件
+        menuLang.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            setTimeout(() => {
+                isEn = !isEn;
+                setLang(isEn);
+                // 标记用户手动切换过语言
+                userManuallySwitched = true;
+                console.log('用户手动切换语言:', isEn ? '英文' : '中文');
+                // 移动端：点击菜单项后关闭下拉菜单
+                if (menuDropdown) {
+                    menuDropdown.style.display = 'none';
+                    isDropdownOpen = false;
+                }
+            }, 50);
+        });
+    }
     
     // 智能语言检测：优化性能的检测策略
     let userManuallySwitched = false; // 标记用户是否手动切换过
@@ -910,8 +986,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // 在控制台输入 testLanguageDetection() 即可测试
     // 导出数据
     if (menuExport) {
+        // 桌面端点击事件
         menuExport.onclick = function() {
             menuDropdown.style.display = 'none';
+            isDropdownOpen = false;
             const history = JSON.parse(localStorage.getItem('answerBookHistory') || '[]');
             if (!history.length) {
                 showGlobalToast(LANG[currentLang].noHistoryExport);
@@ -931,11 +1009,42 @@ document.addEventListener('DOMContentLoaded', function() {
             a.click();
             URL.revokeObjectURL(url);
         };
+        
+        // 移动端触摸事件
+        menuExport.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            setTimeout(() => {
+                menuDropdown.style.display = 'none';
+                isDropdownOpen = false;
+                const history = JSON.parse(localStorage.getItem('answerBookHistory') || '[]');
+                if (!history.length) {
+                    showGlobalToast(LANG[currentLang].noHistoryExport);
+                    return;
+                }
+                let csv = '问题,答案,日期,页码\n';
+                history.forEach(item => {
+                    const q = (item.question||'').replace(/"/g,'""').replace(/\n/g, ' ');
+                    const a = (item.answer||'').replace(/"/g,'""').replace(/\n/g, ' ');
+                    csv += `"${q}","${a}","${item.date||''}",${item.page||''}\n`;
+                });
+                const blob = new Blob([csv], {type: 'text/csv'});
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = '解忧之书历史.csv';
+                a.click();
+                URL.revokeObjectURL(url);
+            }, 50);
+        });
     }
     // 导入数据
     if (menuImport) {
+        // 桌面端点击事件
         menuImport.onclick = function() {
             menuDropdown.style.display = 'none';
+            isDropdownOpen = false;
             let importFile = document.getElementById('importHistoryFile');
             if (!importFile) {
                 importFile = document.createElement('input');
@@ -953,6 +1062,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 showImportConfirm(file);
             };
         };
+        
+        // 移动端触摸事件
+        menuImport.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            setTimeout(() => {
+                menuDropdown.style.display = 'none';
+                isDropdownOpen = false;
+                let importFile = document.getElementById('importHistoryFile');
+                if (!importFile) {
+                    importFile = document.createElement('input');
+                    importFile.type = 'file';
+                    importFile.id = 'importHistoryFile';
+                    importFile.accept = '.json,.csv,.txt';
+                    importFile.style.display = 'none';
+                    document.body.appendChild(importFile);
+                }
+                importFile.value = '';
+                importFile.click();
+                importFile.onchange = function(e) {
+                    if (!importFile.files.length) return;
+                    const file = importFile.files[0];
+                    showImportConfirm(file);
+                };
+            }, 50);
+        });
     }
 
     // 语言切换开关逻辑
