@@ -694,13 +694,118 @@ document.addEventListener('DOMContentLoaded', function() {
     menuLang && menuLang.addEventListener('click', function() {
         isEn = !isEn;
         setLang(isEn);
+        // 标记用户手动切换过语言
+        userManuallySwitched = true;
+        console.log('用户手动切换语言:', isEn ? '英文' : '中文');
     });
+    
+    // 智能语言检测：优化性能的检测策略
+    let userManuallySwitched = false; // 标记用户是否手动切换过
+    let lastCheckTime = 0; // 上次检查时间
+    
+    // 检查浏览器语言是否发生变化
+    function checkBrowserLanguageChange() {
+        const now = Date.now();
+        const currentBrowserLang = navigator.language || navigator.userLanguage;
+        const savedBrowserLang = localStorage.getItem('answerBookBrowserLanguage');
+        
+        // 如果用户手动切换过，且距离上次检查时间太短，跳过检查
+        if (userManuallySwitched && (now - lastCheckTime) < 300000) { // 5分钟内不重复检查
+            return;
+        }
+        
+        if (savedBrowserLang && savedBrowserLang !== currentBrowserLang) {
+            // 浏览器语言发生变化
+            console.log('检测到浏览器语言变化:', savedBrowserLang, '→', currentBrowserLang);
+            
+            // 如果用户没有手动切换过，则自动切换
+            if (!userManuallySwitched) {
+                const detectedLang = detectUserLanguage();
+                if (detectedLang !== isEn) {
+                    isEn = detectedLang;
+                    setLang(isEn);
+                    console.log('自动切换语言:', isEn ? '英文' : '中文');
+                }
+            }
+        }
+        
+        // 保存当前浏览器语言和检查时间
+        localStorage.setItem('answerBookBrowserLanguage', currentBrowserLang);
+        lastCheckTime = now;
+    }
+    
+    // 页面加载时检查一次
+    checkBrowserLanguageChange();
+    
+    // 优化：只在页面可见时检查，减少性能影响
+    let languageCheckInterval = null;
+    
+    function startLanguageCheck() {
+        if (!languageCheckInterval && !userManuallySwitched) {
+            // 如果用户没有手动切换过，才启动定期检查
+            // 每5分钟检查一次（进一步减少频率）
+            languageCheckInterval = setInterval(checkBrowserLanguageChange, 300000);
+        }
+    }
+    
+    function stopLanguageCheck() {
+        if (languageCheckInterval) {
+            clearInterval(languageCheckInterval);
+            languageCheckInterval = null;
+        }
+    }
+    
+    // 页面可见时开始检查，隐藏时停止检查
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            stopLanguageCheck();
+        } else {
+            startLanguageCheck();
+        }
+    });
+    
+    // 页面加载时开始检查
+    startLanguageCheck();
+    
+    // 监听浏览器语言变化事件（部分浏览器支持）
+    if ('languagechange' in window) {
+        window.addEventListener('languagechange', function() {
+            console.log('浏览器语言变化事件触发');
+            checkBrowserLanguageChange();
+        });
+    }
+    
+    // 添加重置语言检测功能（开发测试用）
+    window.resetLanguageDetection = function() {
+        localStorage.removeItem('answerBookLanguage');
+        location.reload();
+    };
+    
+    // 添加语言检测调试功能
+    window.debugLanguageDetection = function() {
+        console.log('=== 语言检测调试 ===');
+        console.log('浏览器语言:', navigator.language || navigator.userLanguage);
+        console.log('系统时区:', Intl.DateTimeFormat().resolvedOptions().timeZone);
+        console.log('当前语言:', currentLang);
+        console.log('已保存的语言:', localStorage.getItem('answerBookLanguage'));
+        console.log('用户是否手动切换过:', userManuallySwitched);
+        console.log('检测结果:', detectUserLanguage() ? '英文' : '中文');
+        console.log('定期检查是否开启:', !!languageCheckInterval);
+        console.log('页面是否可见:', !document.hidden);
+    };
+    
+    // 模拟浏览器语言变化（测试用）
+    window.simulateLanguageChange = function(newLang) {
+        console.log('模拟浏览器语言变化:', newLang);
+        localStorage.setItem('answerBookBrowserLanguage', newLang);
+        checkBrowserLanguageChange();
+    };
     
     // 自动检测用户语言偏好
     function detectUserLanguage() {
-        // 1. 优先使用已保存的语言设置
+        // 1. 如果用户手动切换过，优先使用已保存的语言设置
         const savedLang = localStorage.getItem('answerBookLanguage');
-        if (savedLang) {
+        if (savedLang && userManuallySwitched) {
             return savedLang === 'en' ? true : false;
         }
         
