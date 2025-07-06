@@ -1114,6 +1114,7 @@ function setupEventListeners() {
                 e.preventDefault();
                 return;
             }
+            e.preventDefault(); // 防止默认行为
             startHolding();
         });
         seekAnswerBtn.addEventListener('touchend', function(e) {
@@ -1121,6 +1122,11 @@ function setupEventListeners() {
                 e.preventDefault();
                 return;
             }
+            e.preventDefault(); // 防止默认行为
+            stopHolding();
+        });
+        seekAnswerBtn.addEventListener('touchcancel', function(e) {
+            e.preventDefault(); // 防止默认行为
             stopHolding();
         });
     }
@@ -1162,8 +1168,15 @@ function startHolding() {
     if (!questionInput.value.trim()) {
         return;
     }
-    // 保证长按期间输入框不会失焦
-    questionInput.focus();
+    // 移动端：长按时不聚焦输入框，避免键盘弹起
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 'ontouchstart' in window;
+    if (!isMobile) {
+        // 桌面端：保持输入框聚焦
+        questionInput.focus();
+    } else {
+        // 移动端：主动失焦，隐藏键盘
+        questionInput.blur();
+    }
     // 每次开始前重置动画状态
     document.querySelector('.input-container').classList.remove('move-up');
     answerSection.classList.remove('show');
@@ -1203,8 +1216,12 @@ function stopHolding() {
     seekAnswerBtn.querySelector('.btn-text').style.display = 'inline';
     seekAnswerBtn.querySelector('.btn-loading').style.display = 'none';
     clearInterval(holdInterval);
-    // 保证长按结束后输入框不会失焦
-    questionInput.focus();
+    // 移动端：长按结束后不聚焦输入框，避免键盘弹起
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 'ontouchstart' in window;
+    if (!isMobile) {
+        // 桌面端：保持输入框聚焦
+        questionInput.focus();
+    }
     const holdDuration = Date.now() - (holdStartTime || 0);
     holdStartTime = null;
     if (holdDuration >= 1000) {

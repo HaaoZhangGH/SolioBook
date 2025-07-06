@@ -12,6 +12,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    /* 移动端安全区域支持 - 移除body padding，改为在具体元素中处理 */
 }
 
 html, body {
@@ -363,6 +364,13 @@ html, body {
     margin: 0 auto;
     box-sizing: border-box;
     vertical-align: middle;
+    /* 移动端优化 */
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
 .question-input:focus {
@@ -419,6 +427,7 @@ html, body {
     padding: 0 24px;
     box-sizing: border-box;
     pointer-events: none;
+    /* 移动端安全区域支持 - 移除重复的padding */
 }
 
 .seek-answer-btn {
@@ -436,6 +445,15 @@ html, body {
     position: relative;
     overflow: hidden;
     pointer-events: auto;
+    /* 移动端优化：防止长按时触发系统菜单 */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    /* 防止移动端长按时出现系统菜单 */
+    -webkit-tap-highlight-color: transparent;
 }
 
 .seek-answer-btn:hover:not(:disabled) {
@@ -499,6 +517,14 @@ html, body {
     transition: all 0.3s ease;
     background: #F1F1F1;
     color: #222222;
+    /* 移动端优化 */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .save-btn:hover, .new-question-btn:hover {
@@ -519,6 +545,42 @@ html, body {
     .history-list {
         max-width: 100%;
     }
+    
+    /* 移动端输入框字体大小调整 */
+    .question-input {
+        font-size: 28px;
+    }
+    
+    /* 移动端按钮优化 */
+    .seek-answer-btn {
+        padding: 16px 24px;
+        font-size: 16px;
+    }
+    
+    /* 移动端答案文字大小 */
+    .answer-text {
+        font-size: 20px;
+    }
+    
+    /* 移动端顶部栏优化 */
+    .top-bar {
+        height: auto;
+        min-height: 80px;
+        padding-top: calc(env(safe-area-inset-top) + 16px);
+        padding-bottom: 16px;
+        padding-left: calc(24px + env(safe-area-inset-left));
+        padding-right: calc(24px + env(safe-area-inset-right));
+    }
+    
+    /* 移动端底部栏优化 */
+    .bottom-bar {
+        height: auto;
+        min-height: 80px;
+        padding-top: 16px;
+        padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
+        padding-left: calc(24px + env(safe-area-inset-left));
+        padding-right: calc(24px + env(safe-area-inset-right));
+    }
 }
 
 @media (max-width: 600px) {
@@ -529,6 +591,38 @@ html, body {
         text-align: left;
         margin-left: 0;
         position: absolute;
+    }
+    
+    /* 小屏幕设备顶部栏进一步优化 */
+    .top-bar {
+        padding-top: calc(env(safe-area-inset-top) + 12px);
+        padding-bottom: 12px;
+        min-height: 70px;
+        padding-left: calc(24px + env(safe-area-inset-left));
+        padding-right: calc(24px + env(safe-area-inset-right));
+    }
+    
+    /* 小屏幕设备底部栏进一步优化 */
+    .bottom-bar {
+        padding-top: 12px;
+        padding-bottom: calc(env(safe-area-inset-bottom) + 12px);
+        min-height: 70px;
+        padding-left: calc(24px + env(safe-area-inset-left));
+        padding-right: calc(24px + env(safe-area-inset-right));
+    }
+    
+    /* 小屏幕设备按钮优化 */
+    .seek-answer-btn {
+        padding: 14px 20px;
+        font-size: 15px;
+    }
+    
+    /* 小屏幕设备历史按钮优化 */
+    .history-btn, .history-menu-btn {
+        height: 32px;
+        min-width: 32px;
+        padding: 0 10px;
+        font-size: 14px;
     }
 }
 
