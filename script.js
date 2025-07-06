@@ -667,14 +667,16 @@ document.addEventListener('DOMContentLoaded', function() {
     updateHistoryCount();
 
     // 顶部菜单下拉交互
-    const menuBtn = document.getElementById('historyMenuBtn');
-    const menuDropdown = document.getElementById('historyMenuDropdown');
+    const menuBtn = document.getElementById('settingsMenuBtn');
+    const menuDropdown = document.getElementById('settingsMenuDropdown');
     const menuExport = document.getElementById('menuExport');
     const menuImport = document.getElementById('menuImport');
     let menuTimer = null;
     let isDropdownOpen = false; // 跟踪下拉菜单状态
     
     if (menuBtn && menuDropdown) {
+        console.log('设置菜单按钮和下拉菜单已找到'); // 调试日志
+        
         // 桌面端鼠标事件
         menuBtn.addEventListener('mouseenter', () => {
             clearTimeout(menuTimer);
@@ -704,18 +706,40 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             e.stopPropagation();
             
-            // 添加短暂延迟，避免双击问题
-            setTimeout(() => {
+            console.log('触摸菜单按钮'); // 调试日志
+            
+            // 立即切换状态，不使用延迟
+            if (isDropdownOpen) {
+                // 如果已经打开，则关闭
+                menuDropdown.style.display = 'none';
+                isDropdownOpen = false;
+                console.log('关闭下拉菜单');
+            } else {
+                // 如果关闭，则打开
+                menuDropdown.style.display = 'flex';
+                isDropdownOpen = true;
+                console.log('打开下拉菜单');
+            }
+        });
+        
+        // 添加点击事件作为备用
+        menuBtn.addEventListener('click', (e) => {
+            // 在移动端，点击事件可能会在触摸事件之后触发
+            // 所以我们只在非触摸设备上处理点击
+            if (!('ontouchstart' in window)) {
+                e.preventDefault();
+                console.log('点击菜单按钮');
+                
                 if (isDropdownOpen) {
-                    // 如果已经打开，则关闭
                     menuDropdown.style.display = 'none';
                     isDropdownOpen = false;
+                    console.log('关闭下拉菜单');
                 } else {
-                    // 如果关闭，则打开
                     menuDropdown.style.display = 'flex';
                     isDropdownOpen = true;
+                    console.log('打开下拉菜单');
                 }
-            }, 50);
+            }
         });
         
         // 点击其他地方关闭下拉菜单
@@ -723,18 +747,18 @@ document.addEventListener('DOMContentLoaded', function() {
             if (isDropdownOpen && !menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
                 menuDropdown.style.display = 'none';
                 isDropdownOpen = false;
+                console.log('点击其他地方关闭菜单');
             }
         });
         
         // 触摸其他地方关闭下拉菜单（移动端）
         document.addEventListener('touchstart', (e) => {
-            // 延迟处理，避免与按钮点击冲突
-            setTimeout(() => {
-                if (isDropdownOpen && !menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
-                    menuDropdown.style.display = 'none';
-                    isDropdownOpen = false;
-                }
-            }, 100);
+            // 立即处理，不使用延迟
+            if (isDropdownOpen && !menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
+                menuDropdown.style.display = 'none';
+                isDropdownOpen = false;
+                console.log('触摸其他地方关闭菜单');
+            }
         });
     }
     // 语言切换
@@ -1248,21 +1272,46 @@ function setupEventListeners() {
             if (seekAnswerBtn.disabled) {
                 showGlobalToast(currentLang === 'en' ? 'Please enter content' : '未输入内容');
                 e.preventDefault();
+                e.stopPropagation();
                 return;
             }
             e.preventDefault(); // 防止默认行为
+            e.stopPropagation();
+            // Safari特殊处理：立即失焦输入框
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            if (isSafari) {
+                questionInput.blur();
+                questionInput.setAttribute('readonly', 'readonly');
+            }
             startHolding();
         });
         seekAnswerBtn.addEventListener('touchend', function(e) {
             if (seekAnswerBtn.disabled) {
                 e.preventDefault();
+                e.stopPropagation();
                 return;
             }
             e.preventDefault(); // 防止默认行为
+            e.stopPropagation();
+            // Safari特殊处理：确保输入框不可交互
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            if (isSafari) {
+                questionInput.blur();
+                setTimeout(() => {
+                    questionInput.removeAttribute('readonly');
+                }, 300);
+            }
             stopHolding();
         });
         seekAnswerBtn.addEventListener('touchcancel', function(e) {
             e.preventDefault(); // 防止默认行为
+            e.stopPropagation();
+            // Safari特殊处理：确保输入框不可交互
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            if (isSafari) {
+                questionInput.blur();
+                questionInput.removeAttribute('readonly');
+            }
             stopHolding();
         });
     }
@@ -1306,12 +1355,21 @@ function startHolding() {
     }
     // 移动端：长按时不聚焦输入框，避免键盘弹起
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 'ontouchstart' in window;
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    
     if (!isMobile) {
         // 桌面端：保持输入框聚焦
         questionInput.focus();
     } else {
         // 移动端：主动失焦，隐藏键盘
         questionInput.blur();
+        // Safari特殊处理：强制失焦并阻止默认行为
+        if (isSafari) {
+            questionInput.style.display = 'none';
+            setTimeout(() => {
+                questionInput.style.display = 'block';
+            }, 100);
+        }
     }
     // 每次开始前重置动画状态
     document.querySelector('.input-container').classList.remove('move-up');
@@ -1354,9 +1412,21 @@ function stopHolding() {
     clearInterval(holdInterval);
     // 移动端：长按结束后不聚焦输入框，避免键盘弹起
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 'ontouchstart' in window;
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    
     if (!isMobile) {
         // 桌面端：保持输入框聚焦
         questionInput.focus();
+    } else {
+        // 移动端：确保不聚焦，避免键盘弹起
+        questionInput.blur();
+        // Safari特殊处理：确保输入框不可交互
+        if (isSafari) {
+            questionInput.setAttribute('readonly', 'readonly');
+            setTimeout(() => {
+                questionInput.removeAttribute('readonly');
+            }, 200);
+        }
     }
     const holdDuration = Date.now() - (holdStartTime || 0);
     holdStartTime = null;

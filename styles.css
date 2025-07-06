@@ -26,7 +26,7 @@ html, body {
 }
 
 /* 历史记录按钮 */
-.history-btn, .history-menu-btn {
+.history-btn, .settings-menu-btn {
     height: 36px;
     min-width: 36px;
     padding: 0 14px;
@@ -43,16 +43,24 @@ html, body {
     line-height: 36px;
     transition: all 0.3s;
 }
-.history-btn:hover, .history-menu-btn:hover {
+.history-btn:hover, .settings-menu-btn:hover {
     background: #E8E8E8;
 }
-.history-menu-btn svg {
+.settings-menu-btn svg {
     width: 20px;
     height: 20px;
     display: block;
     /* 确保图标大小固定 */
     min-width: 20px;
     min-height: 20px;
+}
+
+/* 确保设置菜单按钮在移动端正确响应 */
+.settings-menu-btn {
+    /* 移动端优化 */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    cursor: pointer;
 }
 
 /* 历史记录页面 */
@@ -388,6 +396,9 @@ html, body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    /* Safari特殊优化 */
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
 }
 
 .question-input:focus {
@@ -471,6 +482,11 @@ html, body {
     user-select: none;
     /* 防止移动端长按时出现系统菜单 */
     -webkit-tap-highlight-color: transparent;
+    /* Safari特殊优化 */
+    -webkit-appearance: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 .seek-answer-btn:hover:not(:disabled) {
@@ -638,7 +654,7 @@ html, body {
     }
     
     /* 小屏幕设备历史按钮优化 - 保持固定大小 */
-    .history-btn, .history-menu-btn {
+    .history-btn, .settings-menu-btn {
         height: 36px;
         min-width: 36px;
         padding: 0 14px;
@@ -655,13 +671,13 @@ html, body {
     }
     
     /* 移动端下拉菜单优化 */
-    .history-menu-dropdown {
+    .settings-menu-dropdown {
         min-width: 180px;
         right: -8px;
         top: 40px;
     }
     
-    .history-menu-item {
+    .settings-menu-item {
         padding: 12px 16px 12px 24px;
         min-height: 48px;
     }
@@ -1081,7 +1097,7 @@ html, body {
     background: linear-gradient(0deg, #FFF 80%, rgba(255,255,255,0) 100%);
 }
 
-.history-menu-dropdown {
+.settings-menu-dropdown {
     position: absolute;
     right: 0;
     top: 44px;
@@ -1099,8 +1115,10 @@ html, body {
     /* 移动端优化 */
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+    /* 确保在移动端正确显示 */
+    pointer-events: auto;
 }
-.history-menu-item {
+.settings-menu-item {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -1117,10 +1135,10 @@ html, body {
     /* 增加点击区域 */
     min-height: 44px;
 }
-.history-menu-item:hover {
+.settings-menu-item:hover {
     background: none;
 }
-.history-menu-item::after {
+.settings-menu-item::after {
     content: '';
     display: none;
     position: absolute;
@@ -1132,7 +1150,7 @@ html, body {
     background: #F4F4F4;
     z-index: -1;
 }
-.history-menu-item:hover::after {
+.settings-menu-item:hover::after {
     display: block;
 }
 .menu-icon {
@@ -1196,7 +1214,7 @@ html, body {
     position: relative;
 }
 
-.history-menu-divider {
+.settings-menu-divider {
     height: 1px;
     background: #ececec;
     margin: 6px 0;
@@ -1229,7 +1247,7 @@ html, body {
 }
 
 /* 普通圆角适用：历史项、菜单、下拉、数字等 */
-.history-item, .history-count, .import-mode-btn, .import-modal, .history-menu-dropdown {
+.history-item, .history-count, .import-mode-btn, .import-modal, .settings-menu-dropdown {
     border-radius: 8px !important;
 }
 
