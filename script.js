@@ -568,6 +568,13 @@ function setLang(isEn) {
     // 保存语言偏好到localStorage
     localStorage.setItem('answerBookLanguage', currentLang);
     
+    // 动态切换网页标题
+    if (currentLang === 'en') {
+        document.title = 'Solio';
+    } else {
+        document.title = '解忧之书';
+    }
+    
     // 顶部按钮
     if(document.getElementById('historyBtn')) document.getElementById('historyBtn').textContent = L.history;
     if(document.getElementById('historyTitle')) document.getElementById('historyTitle').textContent = L.history;
@@ -1029,7 +1036,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = '解忧之书历史.csv';
+            a.download = (currentLang === 'en' ? 'Solio_History.csv' : '解忧之书历史.csv');
             a.click();
             URL.revokeObjectURL(url);
         };
@@ -1057,7 +1064,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = '解忧之书历史.csv';
+                a.download = (currentLang === 'en' ? 'Solio_History.csv' : '解忧之书历史.csv');
                 a.click();
                 URL.revokeObjectURL(url);
             }, 50);
