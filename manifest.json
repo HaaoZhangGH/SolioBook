@@ -4,8 +4,8 @@
   "description": "犹豫不决时，你需要一个指引和暗示",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "background_color": "#FFDDC6",
+  "theme_color": "#FFDDC6",
   "orientation": "portrait",
   "icons": [
     {

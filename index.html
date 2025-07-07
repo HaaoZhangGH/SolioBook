@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#FFDDC6">
     <title>解忧之书</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +37,7 @@
         <div class="top-bar-left"></div>
         <div class="date-display" id="dateDisplay"></div>
         <div class="top-bar-right">
-            <button class="history-btn" id="historyBtn">我的收藏</button>
+            <button class="history-btn" id="historyBtn">解忧册</button>
             <button class="settings-menu-btn" id="settingsMenuBtn" title="更多操作">
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 9L11 14L16 9" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -94,7 +95,15 @@
             <span class="btn-loading" id="seekBtnLoading" style="display: none;">正在翻阅...</span>
         </button>
         <div class="action-buttons" id="actionButtons" style="display: none;">
-            <button class="save-btn" id="saveBtn">保存</button>
+            <button class="save-btn" id="saveBtn">
+                <span class="icon-bookmark" aria-hidden="true">
+                    <!-- SF Symbols bookmark SVG -->
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 3.5A1.5 1.5 0 0 1 6.5 2h7A1.5 1.5 0 0 1 15 3.5v14a.5.5 0 0 1-.79.407L10 15.118l-4.21 2.789A.5.5 0 0 1 5 17.5v-14Z" stroke="#222" stroke-width="1.5" fill="none"/>
+                    </svg>
+                </span>
+                收录
+            </button>
             <button class="new-question-btn" id="newQuestionBtn">新的问题</button>
         </div>
     </div>
@@ -102,7 +111,7 @@
         <div class="history-blur-bg"></div>
         <div class="history-gradient-top"></div>
         <div class="history-header">
-            <h3 id="historyTitle">我的收藏</h3>
+            <h3 id="historyTitle">解忧册</h3>
             <button class="close-btn" id="closeHistory">✕</button>
         </div>
         <div class="history-content">

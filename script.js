@@ -1,213 +1,213 @@
 // 答案数组 - 中英文
 const ANSWERS = {
     zh: [
-        "千万别在这上面压宝",
-        "采取一个大胆的",
-        "听取专家的意见",
-        "你会发现你自己无法妥协",
-        "专注在你的家庭生活上吧",
-        "研究，然后享受它",
-        "当然",
-        "它将无法预测",
-        "绝对不",
-        "带着好玩的好奇心去探索它",
-        "最好等等看",
-        "它好像是确定的",
-        "乘早做",
-        "对别人保密",
-        "可能会发生一些令人吃惊的事作为结局",
-        "答案可能会是以另一种语言形式来到你身边",
-        "你将需要适当调整一下",
-        "怀疑它",
-        "它将带来好运",
-        "你会发现你所需要知道的一切",
-        "你将会很开心你这样做了",
-        "把它写下来",
-        "千万别陷入你的个人感情",
-        "改变你的焦点",
-        "这时候非常不顺利",
-        "用任何你能做到的方式去提升",
-        "如果做的很好那可以，否则就再也不要做了",
-        "这个时候不要要求更多",
-        "避开第一个解决方案",
-        "观察，看看会发生什么事",
-        "它会影响到其他人怎么看你",
-        "你会谈论它",
-        "以一个更加轻松的步伐去做吧",
-        "最好的解决方法可能不是显而易见的那个",
-        "保持灵活性",
-        "这不是你所能控制的",
-        "享受体验",
-        "谨慎的处理",
-        "注意细节",
-        "当你去做的时候，小心行事",
-        "毫无保留的把它说出来",
-        "它有非常重要的意义",
-        "调整一下重要事项的优先顺序",
-        "这是做一个新计划的最好时机",
-        "继续前进",
-        "做一个为什么不这样的清单",
-        "不要等待",
-        "它将是你无法忘怀的事，并且将被解决",
-        "找更多的选择",
-        "履行你自己的义务",
-        "稍后处理它",
-        "跟随其他人的指引",
-        "冒险一次",
-        "接受你习惯的改变",
-        "你需要采取主动",
-        "这可保证不了",
-        "情况将会转变的非常快",
-        "你讲不得不妥协",
-        "你需要更多的信息",
-        "相信你最起初的想法",
-        "它将引起一场轰动",
-        "灾难时极有可能的",
-        "迫切要求终止",
-        "太多的选择就是太少，要意识到这点很难",
-        "是的",
-        "更加仔细的聆听，然后你将会知道",
-        "答案就在你身边",
-        "让它过去吧",
-        "那将会浪费钱",
-        "全力以赴",
-        "你真的不在乎",
-        "你需要考虑考虑其他方式",
-        "今后一年都没什么好说的",
-        "不要浪费你的时间了",
-        "他可能是非凡的",
-        "数到10，再问一次",
-        "这确实已经是事实了",
-        "布置优先次序将会是过程中一个必须的部分",
-        "运用你的想象力",
-        "他一定会很好",
-        "确保最好的决定，镇定下来",
-        "等待",
-        "当你行动的时候，你将需要不断弥补",
-        "一笑置之",
-        "别人也同样取决于你的选择",
-        "你将会后悔的",
-        "你知道现在比以前更好了",
-        "相信你的直觉",
-        "考虑到它的机会",
-        "问问你的母亲",
-        "可能，当你老的时候",
-        "只能做一次",
-        "可能",
-        "不行",
-        "行",
-        "你的行动将会改善一切",
-        "他将无法预测",
-        "一定要确保它",
-        "问问你的父亲",
-        "绝不",
-        "要有耐心点",
-        "放弃老的解决方案",
-        "不，如果你独自一个人的话",
-        "移除你自己的阻碍",
-        "最好把你的注意力放在工作上",
-        "赌一把",
-        "先把其他事完成",
-        "带着好玩的好奇心去探索它",
-        "最好等等看",
-        "你可能有敌对的人",
-        "置身其中看不清楚",
-        "情况还不清楚",
-        "需要一个实质性的努力",
-        "先让你自己休息一下",
-        "这个机会会不会很快再来",
-        "重新考虑你的方法",
-        "它将是不可取的",
-        "等待一个更好的提议",
-        "早点定下来",
-        "是的，但是别勉强它",
-        "去取得一个更加清晰的视野",
-        "实际点",
-        "节省你的能量吧",
-        "现在你可以",
-        "不要做得过火了",
-        "它将会帮助你",
-        "你将为它付出代价",
-        "它肯定会把事情变得有趣",
-        "结果会是积极的",
-        "随便",
-        "他是肯定的",
-        "它将是一种乐趣",
-        "它是不确定的",
-        "更加慷慨点",
-        "你可能必须要丢下其他的东西",
-        "不用担心",
-        "对意外情况要做好准备",
-        "他没有什么意义",
-        "告诉别人它对你意味着什么",
-        "无论你做什么，结果都将会持续下去",
-        "保持开放的心态",
-        "制作计划的好时机",
-        "他可能艰难，但是你会发现它是有价值的",
-        "他是一个非常值得注意的麻烦",
-        "将会有一个阻碍需要去克服",
-        "相关联的问题可能会浮出水面",
-        "你肯定需要支持",
-        "协助将会使你想成功发展",
-        "合作将会是至关重要的",
-        "别傻了，想点有用的",
-        "不能失败",
-        "温和的坚持会有回报的",
-        "你将不会失望",
-        "找出更多的提议",
-        "他可能是一个木已成舟的事",
-        "贯彻你的良好心愿",
-        "花点时间去决定",
-        "不要被迫太快行动",
-        "不要忽略那些显而易见的事",
-        "你必须现在行动",
-        "他不值得努力",
-        "如果你不抵抗",
-        "遵守规则",
-        "别忘记了享受乐趣",
-        "早点行动",
-        "按照专家的意见",
-        "此时你无法掌控",
-        "你自己知道就好",
-        "关注你的日常生活",
-        "看上去是这样子的",
-        "采取冒险的态度",
-        "结果会令人吃惊",
-        "你的行动会促进事情的进展",
-        "你需要慢慢适应",
-        "避免第一种结论",
-        "这件事会影响别人怎么看待你",
-        "此时不宜",
-        "这跟另一种情况有很大的关系",
-        "按照别人告诉你的方式去做",
-        "做得好就去做，做不好玩去别做",
-        "尽你所能做得更好",
-        "你会知道最终结果",
-        "你会为你现在所做的感到高兴",
-        "以书写的形式去表达",
-        "最佳方案不会那么显而易见",
-        "请控制自己的情绪",
-        "继续",
-        "一笑而过",
-        "好好享受这次经历",
-        "情况将会很快改变",
-        "以更加舒缓的节奏进行",
-        "转移你的注意力",
-        "勇敢说出来",
-        "优先做更重要的事",
-        "你需要妥协",
-        "需要更多的努力",
-        "有些事情你无法忘记",
-        "冒一次陷",
-        "做平淡中接受一些改变",
-        "期待事情能够定下来",
-        "这很重要",
-        "当局者迷",
-        "排除杂念",
-        "形式尚不明朗",
-        "大方一点",
-        "那将是一件愉快的事",
-        "放手一博"
+    "千万别在这上面压宝",
+    "采取一个大胆的",
+    "听取专家的意见",
+    "你会发现你自己无法妥协",
+    "专注在你的家庭生活上吧",
+    "研究，然后享受它",
+    "当然",
+    "它将无法预测",
+    "绝对不",
+    "带着好玩的好奇心去探索它",
+    "最好等等看",
+    "它好像是确定的",
+    "乘早做",
+    "对别人保密",
+    "可能会发生一些令人吃惊的事作为结局",
+    "答案可能会是以另一种语言形式来到你身边",
+    "你将需要适当调整一下",
+    "怀疑它",
+    "它将带来好运",
+    "你会发现你所需要知道的一切",
+    "你将会很开心你这样做了",
+    "把它写下来",
+    "千万别陷入你的个人感情",
+    "改变你的焦点",
+    "这时候非常不顺利",
+    "用任何你能做到的方式去提升",
+    "如果做的很好那可以，否则就再也不要做了",
+    "这个时候不要要求更多",
+    "避开第一个解决方案",
+    "观察，看看会发生什么事",
+    "它会影响到其他人怎么看你",
+    "你会谈论它",
+    "以一个更加轻松的步伐去做吧",
+    "最好的解决方法可能不是显而易见的那个",
+    "保持灵活性",
+    "这不是你所能控制的",
+    "享受体验",
+    "谨慎的处理",
+    "注意细节",
+    "当你去做的时候，小心行事",
+    "毫无保留的把它说出来",
+    "它有非常重要的意义",
+    "调整一下重要事项的优先顺序",
+    "这是做一个新计划的最好时机",
+    "继续前进",
+    "做一个为什么不这样的清单",
+    "不要等待",
+    "它将是你无法忘怀的事，并且将被解决",
+    "找更多的选择",
+    "履行你自己的义务",
+    "稍后处理它",
+    "跟随其他人的指引",
+    "冒险一次",
+    "接受你习惯的改变",
+    "你需要采取主动",
+    "这可保证不了",
+    "情况将会转变的非常快",
+    "你讲不得不妥协",
+    "你需要更多的信息",
+    "相信你最起初的想法",
+    "它将引起一场轰动",
+    "灾难时极有可能的",
+    "迫切要求终止",
+    "太多的选择就是太少，要意识到这点很难",
+    "是的",
+    "更加仔细的聆听，然后你将会知道",
+    "答案就在你身边",
+    "让它过去吧",
+    "那将会浪费钱",
+    "全力以赴",
+    "你真的不在乎",
+    "你需要考虑考虑其他方式",
+    "今后一年都没什么好说的",
+    "不要浪费你的时间了",
+    "他可能是非凡的",
+    "数到10，再问一次",
+    "这确实已经是事实了",
+    "布置优先次序将会是过程中一个必须的部分",
+    "运用你的想象力",
+    "他一定会很好",
+    "确保最好的决定，镇定下来",
+    "等待",
+    "当你行动的时候，你将需要不断弥补",
+    "一笑置之",
+    "别人也同样取决于你的选择",
+    "你将会后悔的",
+    "你知道现在比以前更好了",
+    "相信你的直觉",
+    "考虑到它的机会",
+    "问问你的母亲",
+    "可能，当你老的时候",
+    "只能做一次",
+    "可能",
+    "不行",
+    "行",
+    "你的行动将会改善一切",
+    "他将无法预测",
+    "一定要确保它",
+    "问问你的父亲",
+    "绝不",
+    "要有耐心点",
+    "放弃老的解决方案",
+    "不，如果你独自一个人的话",
+    "移除你自己的阻碍",
+    "最好把你的注意力放在工作上",
+    "赌一把",
+    "先把其他事完成",
+    "带着好玩的好奇心去探索它",
+    "最好等等看",
+    "你可能有敌对的人",
+    "置身其中看不清楚",
+    "情况还不清楚",
+    "需要一个实质性的努力",
+    "先让你自己休息一下",
+    "这个机会会不会很快再来",
+    "重新考虑你的方法",
+    "它将是不可取的",
+    "等待一个更好的提议",
+    "早点定下来",
+    "是的，但是别勉强它",
+    "去取得一个更加清晰的视野",
+    "实际点",
+    "节省你的能量吧",
+    "现在你可以",
+    "不要做得过火了",
+    "它将会帮助你",
+    "你将为它付出代价",
+    "它肯定会把事情变得有趣",
+    "结果会是积极的",
+    "随便",
+    "他是肯定的",
+    "它将是一种乐趣",
+    "它是不确定的",
+    "更加慷慨点",
+    "你可能必须要丢下其他的东西",
+    "不用担心",
+    "对意外情况要做好准备",
+    "他没有什么意义",
+    "告诉别人它对你意味着什么",
+    "无论你做什么，结果都将会持续下去",
+    "保持开放的心态",
+    "制作计划的好时机",
+    "他可能艰难，但是你会发现它是有价值的",
+    "他是一个非常值得注意的麻烦",
+    "将会有一个阻碍需要去克服",
+    "相关联的问题可能会浮出水面",
+    "你肯定需要支持",
+    "协助将会使你想成功发展",
+    "合作将会是至关重要的",
+    "别傻了，想点有用的",
+    "不能失败",
+    "温和的坚持会有回报的",
+    "你将不会失望",
+    "找出更多的提议",
+    "他可能是一个木已成舟的事",
+    "贯彻你的良好心愿",
+    "花点时间去决定",
+    "不要被迫太快行动",
+    "不要忽略那些显而易见的事",
+    "你必须现在行动",
+    "他不值得努力",
+    "如果你不抵抗",
+    "遵守规则",
+    "别忘记了享受乐趣",
+    "早点行动",
+    "按照专家的意见",
+    "此时你无法掌控",
+    "你自己知道就好",
+    "关注你的日常生活",
+    "看上去是这样子的",
+    "采取冒险的态度",
+    "结果会令人吃惊",
+    "你的行动会促进事情的进展",
+    "你需要慢慢适应",
+    "避免第一种结论",
+    "这件事会影响别人怎么看待你",
+    "此时不宜",
+    "这跟另一种情况有很大的关系",
+    "按照别人告诉你的方式去做",
+    "做得好就去做，做不好玩去别做",
+    "尽你所能做得更好",
+    "你会知道最终结果",
+    "你会为你现在所做的感到高兴",
+    "以书写的形式去表达",
+    "最佳方案不会那么显而易见",
+    "请控制自己的情绪",
+    "继续",
+    "一笑而过",
+    "好好享受这次经历",
+    "情况将会很快改变",
+    "以更加舒缓的节奏进行",
+    "转移你的注意力",
+    "勇敢说出来",
+    "优先做更重要的事",
+    "你需要妥协",
+    "需要更多的努力",
+    "有些事情你无法忘记",
+    "冒一次陷",
+    "做平淡中接受一些改变",
+    "期待事情能够定下来",
+    "这很重要",
+    "当局者迷",
+    "排除杂念",
+    "形式尚不明朗",
+    "大方一点",
+    "那将是一件愉快的事",
+    "放手一博"
     ],
     en: [
         "Don't be on it",
@@ -423,18 +423,18 @@ const ANSWERS = {
 // 随机占位符文案 - 中英文
 const PLACEHOLDER_TEXTS = {
     zh: [
-        '写下你的困惑',
-        '写下疑惑，看看宇宙的暗示',
-        '有困惑交给解忧之书',
-        '让书页为你指引方向',
-        '写下心事，答案自会浮现',
-        '大胆提问，解忧之书会回应你',
-        '犹豫不决，抽一签吧',
-        '有些决定，不妨交给命运',
-        '犹豫不决时，你需要一个暗示',
-        '让解忧之书为你的犹豫点一盏灯',
-        '看看命运想对你说什么',
-        '你需要一些勇气'
+    '写下你的困惑',
+    '写下疑惑，看看宇宙的暗示',
+    '有困惑交给解忧之书',
+    '让书页为你指引方向',
+    '写下心事，答案自会浮现',
+    '大胆提问，解忧之书会回应你',
+    '犹豫不决，抽一签吧',
+    '有些决定，不妨交给命运',
+    '犹豫不决时，你需要一个暗示',
+    '让解忧之书为你的犹豫点一盏灯',
+    '看看命运想对你说什么',
+    '你需要一些勇气'
     ],
     en: [
         'Write down your confusion',
@@ -494,12 +494,12 @@ let enterDown = false; // 新增，防止多次触发
 // 全局中英文文案映射
 const LANG = {
     zh: {
-        history: '我的收藏',
+        history: '解忧册',
         export: '导出收藏',
         import: '导入数据',
         switchLang: '切换语言',
         switchLangEn: '切换语言',
-        save: '保存',
+        save: '收录',
         newQ: '新的问题',
         empty: '暂无收藏',
         close: '✕',
@@ -519,19 +519,19 @@ const LANG = {
         placeholder: '写下你的困扰',
         loadingTip: '犹豫不决时，你需要一个指引和暗示',
         noHistoryExport: '暂无历史可导出',
-        saveSuccess: '保存成功',
+        saveSuccess: '收录成功',
         deleteSuccess: '删除成功',
         undo: '撤销',
-        collection: 'Collection',
+        collection: '解忧册',
         seeking: '正在翻阅...',
     },
     en: {
-        history: 'Collection',
+        history: 'SolioBook',
         export: 'Export',
         import: 'Import',
         switchLang: 'Switch Language',
         switchLangEn: 'Switch Language',
-        save: 'Save',
+        save: 'Collect',
         newQ: 'New Question',
         empty: 'No Collection',
         close: '✕',
@@ -550,11 +550,11 @@ const LANG = {
         seek: 'Hold to seek answer',
         placeholder: 'Type your question',
         loadingTip: 'When in doubt, you need guidance and hints',
-        noHistoryExport: 'No history to export',
-        saveSuccess: 'Saved successfully',
+        noHistoryExport: 'No collection to export',
+        saveSuccess: 'Collected',
         deleteSuccess: 'Deleted successfully',
         undo: 'Undo',
-        collection: 'Collection',
+        collection: 'SolioBook',
         seeking: 'Seeking...',
     }
 };
@@ -570,7 +570,7 @@ function setLang(isEn) {
     
     // 动态切换网页标题
     if (currentLang === 'en') {
-        document.title = 'Solio';
+        document.title = 'SolioBook';
     } else {
         document.title = '解忧之书';
     }
@@ -774,8 +774,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (menuLang) {
         // 桌面端点击事件
         menuLang.addEventListener('click', function() {
-            isEn = !isEn;
-            setLang(isEn);
+        isEn = !isEn;
+        setLang(isEn);
             // 标记用户手动切换过语言
             userManuallySwitched = true;
             console.log('用户手动切换语言:', isEn ? '英文' : '中文');
@@ -1036,7 +1036,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = (currentLang === 'en' ? 'Solio_History.csv' : '解忧之书历史.csv');
+            a.download = (currentLang === 'en' ? 'SolioBook_History.csv' : '解忧之书历史.csv');
             a.click();
             URL.revokeObjectURL(url);
         };
@@ -1064,7 +1064,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = (currentLang === 'en' ? 'Solio_History.csv' : '解忧之书历史.csv');
+                a.download = (currentLang === 'en' ? 'SolioBook_History.csv' : '解忧之书历史.csv');
                 a.click();
                 URL.revokeObjectURL(url);
             }, 50);
@@ -1182,25 +1182,25 @@ function showCurrentDate() {
         document.getElementById('dateDisplay').textContent = dateString;
     } else {
         // 中文日期格式
-        const chineseMonths = [
-            '一月', '二月', '三月', '四月', '五月', '六月',
-            '七月', '八月', '九月', '十月', '十一月', '十二月'
-        ];
-        
-        const chineseNumbers = [
-            '', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十',
-            '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十',
-            '廿一', '廿二', '廿三', '廿四', '廿五', '廿六', '廿七', '廿八', '廿九', '三十', '三十一'
-        ];
-        
-        const chineseWeekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-        
-        const month = chineseMonths[now.getMonth()];
-        const day = chineseNumbers[now.getDate()];
-        const weekday = chineseWeekdays[now.getDay()];
-        
-        const dateString = `${month}${day}日 ${weekday}`;
-        document.getElementById('dateDisplay').textContent = dateString;
+    const chineseMonths = [
+        '一月', '二月', '三月', '四月', '五月', '六月',
+        '七月', '八月', '九月', '十月', '十一月', '十二月'
+    ];
+    
+    const chineseNumbers = [
+        '', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十',
+        '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十',
+        '廿一', '廿二', '廿三', '廿四', '廿五', '廿六', '廿七', '廿八', '廿九', '三十', '三十一'
+    ];
+    
+    const chineseWeekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+    
+    const month = chineseMonths[now.getMonth()];
+    const day = chineseNumbers[now.getDate()];
+    const weekday = chineseWeekdays[now.getDay()];
+    
+    const dateString = `${month}${day}日 ${weekday}`;
+    document.getElementById('dateDisplay').textContent = dateString;
     }
 }
 
@@ -1366,7 +1366,7 @@ function startHolding() {
     
     if (!isMobile) {
         // 桌面端：保持输入框聚焦
-        questionInput.focus();
+    questionInput.focus();
     } else {
         // 移动端：主动失焦，隐藏键盘
         questionInput.blur();
@@ -1423,7 +1423,7 @@ function stopHolding() {
     
     if (!isMobile) {
         // 桌面端：保持输入框聚焦
-        questionInput.focus();
+    questionInput.focus();
     } else {
         // 移动端：确保不聚焦，避免键盘弹起
         questionInput.blur();
@@ -1518,7 +1518,18 @@ function showGlobalToast(message, options = {}) {
     // 左侧文字层
     const msgDiv = document.createElement('div');
     msgDiv.className = 'global-toast-message';
-    msgDiv.textContent = message;
+    // 判断是否为录入成功toast
+    if (options && options.saveSuccess) {
+        // SF符号风格 checkmark.circle.fill，颜色与文字一致，尺寸更小
+        msgDiv.innerHTML = `<span style="display:inline-flex;align-items:center;margin-right:6px;vertical-align:middle;position:relative;top:-2px;">
+            <svg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg' style='display:block;'>
+                <circle cx='8' cy='8' r='8' fill='#222'/>
+                <path d='M5.2 8.2l2 2.1 3.5-3.5' stroke='#fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/>
+            </svg>
+        </span>` + message;
+    } else {
+        msgDiv.innerHTML = message;
+    }
     toast.appendChild(msgDiv);
 
     // 右侧功能层
@@ -1553,7 +1564,8 @@ function showGlobalToast(message, options = {}) {
         detailsBtn.onclick = options.onDetails || function(){};
         actionDiv.appendChild(detailsBtn);
     }
-    if (!options.undo && !options.retry && !options.details) {
+    // 只有不是录入成功toast时，才显示关闭按钮
+    if (!options.undo && !options.retry && !options.details && !options.saveSuccess) {
         const closeBtn = document.createElement('button');
         closeBtn.className = 'toast-close';
         closeBtn.innerHTML = '✕';
@@ -1580,6 +1592,16 @@ function showGlobalToast(message, options = {}) {
     }, options.duration || 2000);
 }
 
+// 收录成功提示定制
+function getCustomSaveSuccess(answer, lang) {
+    const count = history.length;
+    if (lang === 'zh') {
+        return `第<span class="orange">${count}</span>次收录「解忧册」`;
+    } else {
+        return `SolioBook Entry <span class="orange">#${count}</span> Saved`;
+    }
+}
+
 // 保存答案
 function saveAnswer() {
     if (!currentAnswer || !questionInput.value.trim()) return;
@@ -1599,7 +1621,7 @@ function saveAnswer() {
     
     localStorage.setItem('answerBookHistory', JSON.stringify(history));
     loadHistory();
-    showGlobalToast(LANG[currentLang].saveSuccess);
+    showGlobalToast(getCustomSaveSuccess(currentAnswer, currentLang), { duration: 3000, saveSuccess: true });
     
     // 保存后进入新的输入状态
     newQuestion();
