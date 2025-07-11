@@ -612,7 +612,7 @@ function setLang(isEn) {
             currentAnswer = currentAnswers[currentAnswerIndex];
             if (answerText) {
                 answerText.textContent = currentAnswer;
-            }
+    }
         }
     }
     
