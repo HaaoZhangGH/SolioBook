@@ -35,13 +35,9 @@
         updateHistoryCountDetail();
     });
 
-    // 虚拟滚动参数
-    const ITEM_HEIGHT = 88; // 单条历史项高度（px），如需微调可改
-    const VISIBLE_COUNT = 16; // 可视区最多渲染多少条（可根据页面高度微调）
+    // 历史记录数据
     let history = [];
     let historyList, historyContent;
-    let itemNodes = [];
-    let ticking = false;
 
     function updateHistoryCountDetail() {
         const countSpan = document.getElementById('historyCountDetail');
@@ -64,63 +60,43 @@
             `;
             return;
         }
-        // 设置容器高度
+        
+        // 使用网格布局而不是虚拟滚动
         historyList.innerHTML = '';
-        historyList.style.position = 'relative';
-        historyList.style.height = (history.length * ITEM_HEIGHT) + 'px';
-        // 创建固定数量的item节点
-        itemNodes = [];
-        for (let i = 0; i < Math.min(VISIBLE_COUNT + 4, history.length); i++) {
-            const div = document.createElement('div');
-            div.className = 'history-item';
-            div.style.position = 'absolute';
-            div.style.left = '0';
-            div.style.width = '100%';
-            div.style.height = (ITEM_HEIGHT - 8) + 'px';
-            historyList.appendChild(div);
-            itemNodes.push(div);
-        }
-        renderVirtualList();
-        historyContent.onscroll = onScrollThrottled;
-    }
-
-    function onScrollThrottled() {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                renderVirtualList();
-                ticking = false;
-            });
-            ticking = true;
-        }
-    }
-
-    function renderVirtualList() {
-        const scrollTop = historyContent.scrollTop;
-        const total = history.length;
-        const start = Math.max(0, Math.floor(scrollTop / ITEM_HEIGHT) - 2);
-        for (let i = 0; i < itemNodes.length; i++) {
-            const dataIdx = start + i;
-            const node = itemNodes[i];
-            if (dataIdx >= total) {
-                node.style.display = 'none';
-                continue;
-            }
-            const item = history[dataIdx];
-            node.style.display = 'block';
-            node.style.top = (dataIdx * ITEM_HEIGHT) + 'px';
-            node.innerHTML = `
-                <div class="history-question">${item.question}</div>
-                <div class="history-answer">${item.answer}</div>
-                <div class="history-bottom-row">
-                    <div class="history-date">${item.date} - p${item.page}</div>
-                    <button class="history-delete" title="删除" onclick="deleteHistory(${item.id})">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 6V4.8C7 4.35817 7 4.13725 7.0545 3.94702C7.2185 3.37031 7.69031 2.8985 8.26702 2.7345C8.45725 2.68 8.67817 2.68 9.12 2.68H14.88C15.3218 2.68 15.5427 2.68 15.733 2.7345C16.3097 2.8985 16.7815 3.37031 16.9455 3.94702C17 4.13725 17 4.35817 17 4.8V6M4 6H20M19.2 6V18.4C19.2 19.2802 19.2 19.7202 19.0181 20.0541C18.8606 20.3414 18.6014 20.6006 18.3141 20.7581C17.9802 20.94 17.5402 20.94 16.66 20.94H7.34C6.45977 20.94 6.01965 20.94 5.68587 20.7581C5.39863 20.6006 5.13937 20.3414 4.98189 20.0541C4.8 19.7202 4.8 19.2802 4.8 18.4V6M9.6 10.8V16.2M14.4 10.8V16.2" stroke="#D32F2F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        <span class="delete-toast">删除</span>
-                    </button>
+        historyList.style.position = 'static';
+        historyList.style.height = 'auto';
+        
+        // 按日期降序排列并渲染所有项目
+        const sorted = [...history].sort((a, b) => parseDateToTimestamp(b.date) - parseDateToTimestamp(a.date));
+        sorted.forEach(item => {
+            const historyCard = document.createElement('div');
+            historyCard.className = 'history-card';
+            historyCard.innerHTML = `
+                <div class="history-card-content">
+                    <div class="history-question">${item.question}</div>
+                    <div class="history-answer">${item.answer}</div>
                 </div>
+                <div class="history-card-bottom">
+                    <div class="history-date">${item.date} - p${item.page}</div>
+                </div>
+                <button class="history-delete" onclick="deleteHistory(${item.id})" title="删除">
+                    <img src="images/delete.png" alt="删除" style="width:24px;height:24px;vertical-align:middle; object-fit: contain;" />
+                    <span class="delete-toast">删除</span>
+                </button>
             `;
-        }
+            historyList.appendChild(historyCard);
+        });
     }
+    
+    // 时间戳解析函数
+    function parseDateToTimestamp(dateStr) {
+        if (!dateStr) return 0;
+        const s = dateStr.replace(/[./]/g, '-');
+        const d = new Date(s);
+        return isNaN(d.getTime()) ? 0 : d.getTime();
+    }
+
+
 
     // 删除历史记录
     function deleteHistory(id) {

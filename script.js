@@ -1707,17 +1707,19 @@ function loadHistory() {
     const sorted = [...history].sort((a, b) => parseDateToTimestamp(b.date) - parseDateToTimestamp(a.date));
     sorted.forEach(item => {
         const historyItem = document.createElement('div');
-        historyItem.className = 'history-item';
+        historyItem.className = 'history-card';
         historyItem.innerHTML = `
-            <div class="history-question">${item.question}</div>
-            <div class="history-answer">${item.answer}</div>
-            <div class="history-bottom-row">
-                <div class="history-date">${item.date} - p${item.page}</div>
-                <button class="history-delete" onclick="deleteHistory(${item.id})" title="删除">
-                    <img src="images/delete.png" alt="删除" style="width:24px;height:24px;vertical-align:middle; object-fit: contain;" />
-                    <span class="delete-toast">删除</span>
-                </button>
+            <div class="history-card-content">
+                <div class="history-question">${item.question}</div>
+                <div class="history-answer">${item.answer}</div>
             </div>
+            <div class="history-card-bottom">
+                <div class="history-date">${item.date} - p${item.page}</div>
+            </div>
+            <button class="history-delete" onclick="deleteHistory(${item.id})" title="删除">
+                <img src="images/delete.png" alt="删除" style="width:24px;height:24px;vertical-align:middle; object-fit: contain;" />
+                <span class="delete-toast">删除</span>
+            </button>
         `;
         historyList.appendChild(historyItem);
     });
